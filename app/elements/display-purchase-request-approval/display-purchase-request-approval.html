@@ -1,0 +1,77 @@
+<dom-module id="display-purchase-request-approval">
+  <style>
+  paper-input {
+      --paper-input: {
+        width: 100%;
+      }
+    }
+  </style>
+  <template>
+    <div class="col-sm-6">
+      <img src="../../dist/img/no_image.jpg" width="60%" height="60%" style="margin-left:110px;margin-top:160px;"/>
+    </div>
+    <!-- <app-drawer opened align="right"> -->
+      <!-- <div style="height: 100%; overflow: auto;"> -->
+    <div class="col-sm-6">
+      <paper-card style="width:100%;" elevation="0">
+        <div class="card-content">
+          <paper-input label="Item Name" value="{{itemname}}" readonly></paper-input>
+          <paper-input label="Item Type" value="{{itype}}" readonly></paper-input>
+          <paper-input label="Item Specification1" value="{{itemspecification1}}" readonly></paper-input>
+          <paper-input label="Warehouselocation" value="{{selectedwh}}" readonly></paper-input>
+          <paper-input label="Item Container" value="{{icontainer}}" readonly></paper-input>
+          <paper-input label="Container Quantity" value="{{cquantity}}" readonly></paper-input>
+          <paper-input label="Item Quantity" value="{{iquantity}}" readonly></paper-input>
+          <paper-input label="Required Date" value={{reqdate}} readonly></paper-input>
+        </div>
+        <div class="card-actions" hidden="{{radiobtngrphidden}}">
+          <paper-radio-group attr-for-selected="value" selected="{{responsevalue}}" on-iron-select="respond">
+            <paper-radio-button value="active">Approve</paper-radio-button>
+            <paper-radio-button value="inactive">Reject</paper-radio-button>
+          </paper-radio-group>
+        </div>
+      </paper-card>
+  </div>
+    <iron-ajax
+      id="purchase_requestrespond"
+      method="post"
+      params="{{responseparam}}"
+      url="http://localhost:4000/purchase_requestresponse"
+      handle-as="json"
+      on-response="handleResponse">
+    </iron-ajax>
+  </template>
+</dom-module>
+<script type="text/javascript">
+var purchase_requestnumber;
+  Polymer({
+    is: "display-purchase-request-approval",
+    purchase_requests:function(intnumber,intdate,purchase_requesttype,itemid,iquantity,cquantity,whstoresid,
+                     status,ireqdate,itemid,itemname,itemdescription,itemspecification1,
+                     itemspecification2,containerid,unitofmeasures,itemgroup,itemtypeid,
+                     itemstatus,itempurchasetype,warehouselocation,deptname,itemtypename,containername){
+          this.itemname=itemname;
+          this.itype=itemtypename;
+          this.itemspecification1=itemspecification1;
+          this.selectedwh=warehouselocation;
+          this.icontainer=containername;
+          this.cquantity=cquantity;
+          this.iquantity=iquantity;
+          this.reqdate=intdate;
+          purchase_requestnumber=intnumber;
+        },
+      respond:function(){
+        var jobj={};
+        jobj.respond=this.responsevalue;
+        jobj.intnumber=purchase_requestnumber;
+        this.responseparam=jobj;
+        this.$.purchase_requestrespond.generateRequest();
+      },
+      handleResponse:function(e){
+        alert(e.detail.response.returnval);
+        var data=sessionStorage.getItem("logrole");
+        document.querySelector('home-page').FnSetPage("call-purchase-request-approval");
+        document.querySelector("call-purchase-request-approval").loggedrole={role:data};
+      }
+  });
+</script>

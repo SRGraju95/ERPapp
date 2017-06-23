@@ -1,0 +1,65 @@
+<dom-module id="quality-parameter-type-value-service">
+  <template>
+    <div hidden>
+    {{itemidget}}
+    {{qualityidget}}
+    {{elementnameget}}
+    {{getgrnnumber}}
+  </div>
+  <template is="dom-repeat" items="{{itemqualityparameterrange}}">
+     <quality-parameter-range-value-service
+                       itemidget="{{item.item_id}}"
+                       qualityidget="{{item.quality_parameter_id}}"
+                       elementnameget="item-quality-testing"
+                       flagvalue="{{item.quality_parameter_type_flag}}"
+                       getgrnnumber="{{getgrnnumber}}"
+                       containerno="{{containerno}}">
+      </quality-parameter-range-value-service>
+  </template>
+  <iron-ajax
+  id="valueajax"
+  method="post"
+  url="{{valueurl}}"
+  handle-as="json"
+  params="{{valueparams}}"
+  on-response="valuecomplete">
+  </iron-ajax>
+  </template>
+ <script>
+  (function() {
+    'use strict';
+var entry_count=0;
+var response_entry=0;
+var valueresponse_global_arr=[];
+  Polymer({
+    is: 'quality-parameter-type-value-service',
+
+        ready: function() {
+          entry_count++;
+          var dbnameobj={};
+          dbnameobj.itemid_get=this.itemidget;
+          dbnameobj.qualityid_get=this.qualityidget;
+          this.valueparams=dbnameobj;
+          this.valueurl="http://localhost:4000/qualityvalueservicefetch";
+          this.$.valueajax.generateRequest();
+        },
+        valuecomplete:function(e){
+          response_entry++;
+          var valueresponse_local_arr=[];
+          var valueresponse=e.detail.response.returnval;
+          valueresponse_global_arr=valueresponse_global_arr.concat(valueresponse);
+          for(var i=0;i<valueresponse_global_arr.length;i++){
+            valueresponse_local_arr.push(valueresponse_global_arr[i])
+          }
+          // alert(entry_count);
+          // alert(response_entry);
+          if(entry_count==response_entry){
+            // alert(JSON.stringify(valueresponse_local_arr));
+            this.itemqualityparameterrange=valueresponse_local_arr;
+            valueresponse_global_arr=[];
+          }
+        }
+    });
+  })();
+  </script>
+</dom-module>

@@ -1,0 +1,35 @@
+<dom-module id="prizing-strategy">
+  <template>
+    <div hidden>{{tablename}}</div>
+    <div hidden>{{elementname}}</div>
+    <div hidden>{{idname}}</div>
+    <div hidden>{{fieldname}}</div>
+    <div hidden>{{itemid}}</div>
+    <div hidden>{{returnfunctionname}}</div>
+    <iron-ajax
+      id="pricing_strategy_ajax_id"
+      method="post"
+      url="http://localhost:4000/pricing_strategy"
+      params="{{params}}"
+      on-request="check"
+      handle-as="json"
+      on-response="handleResponse"></iron-ajax>
+  </template>
+<script>
+  Polymer({
+    is:"prizing-strategy",
+    ready:function(){
+    },
+    handleResponse:function(e){
+      document.querySelector(this.elementname)[this.returnfunctionname](e.detail.response.returnval);
+    },
+    call_iron_ajaxFn:function(){
+        this.params={tablename:this.tablename,
+                     idname:this.idname,
+                      fieldname:this.fieldname,
+                      itemid:this.itemid};
+      this.$.pricing_strategy_ajax_id.generateRequest();
+    }
+  });
+</script>
+    </dom-module>

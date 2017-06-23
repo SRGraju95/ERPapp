@@ -1,0 +1,98 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "jsapi-js-sdk",
+        "scope": null,
+        "escapedName": "jsapi-js-sdk",
+        "name": "jsapi-js-sdk",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "D:\\own-github\\erpapp"
+    ]
+  ],
+  "_from": "jsapi-js-sdk@latest",
+  "_id": "jsapi-js-sdk@0.5.8",
+  "_inCache": true,
+  "_location": "/jsapi-js-sdk",
+  "_nodeVersion": "4.2.4",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/jsapi-js-sdk-0.5.8.tgz_1468941291621_0.6907770826946944"
+  },
+  "_npmUser": {
+    "name": "knetik",
+    "email": "dev@knetik.com"
+  },
+  "_npmVersion": "3.5.3",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "jsapi-js-sdk",
+    "scope": null,
+    "escapedName": "jsapi-js-sdk",
+    "name": "jsapi-js-sdk",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/jsapi-js-sdk/-/jsapi-js-sdk-0.5.8.tgz",
+  "_shasum": "99f26159cfd643b58910ec49d70b4530777d748e",
+  "_shrinkwrap": null,
+  "_spec": "jsapi-js-sdk",
+  "_where": "D:\\own-github\\erpapp",
+  "author": {
+    "name": "dev@knetik.com"
+  },
+  "dependencies": {
+    "MD5": "^1.2.2",
+    "bunyan": "^1.4.0",
+    "lodash": "^3.9.3",
+    "q": "^1.4.1",
+    "restler": "^3.2.2"
+  },
+  "description": "JSAPI NodeJS Sdk",
+  "devDependencies": {
+    "mocha": "^2.2.5",
+    "should": "^7.0.1"
+  },
+  "directories": {
+    "test": "test",
+    "lib": "lib"
+  },
+  "dist": {
+    "shasum": "99f26159cfd643b58910ec49d70b4530777d748e",
+    "tarball": "https://registry.npmjs.org/jsapi-js-sdk/-/jsapi-js-sdk-0.5.8.tgz"
+  },
+  "engines": {
+    "node": ">= 0.10.x"
+  },
+  "gitHead": "3e3da6ba44f838958ef26edb52ea9a75f428c13d",
+  "homepage": "https://bitbucket.org/knetikmedia/jsapi-js-sdk#readme",
+  "keywords": [
+    "JSAPI"
+  ],
+  "license": "ISC",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "knetik",
+      "email": "dev@knetik.com"
+    }
+  ],
+  "name": "jsapi-js-sdk",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://git@bitbucket.org/knetikmedia/jsapi-js-sdk.git"
+  },
+  "scripts": {
+    "test": "mocha test/*.spec.js"
+  },
+  "version": "0.5.8"
+}

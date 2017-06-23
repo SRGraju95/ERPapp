@@ -1,0 +1,5 @@
+"inward_register_number","item_id","container_quantity","item_quantity","remarks","reason_id","status","container_id","unit_of_measure_id","supplier_id","emp_id"
+"irn2126","WIR03","10","2","fair","reason002","rejected","coil","tonn","MUK","10"
+"irn2129","sample1","1","2","gud","reason001","rejected","coil","tonn","MUK","10"
+"irn2129","sample1","1","2","gud","reason001","accepted","coil","tonn","MUK","16"
+"irn2126","WIR03","10","2","fair","reason002","rejected","coil","tonn","MUK","16"

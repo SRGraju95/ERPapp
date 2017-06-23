@@ -1,0 +1,239 @@
+<link rel="import" href="../item-quality-testing/slider-paper-input.html">
+<link rel="import" href="../item-quality-testing/paper-toggle-element.html">
+<link rel="import" href="../item-quality-testing/paper-dropdown-element.html">
+<dom-module id="quality-parameter-range-value-service">
+  <template>
+    <style>
+    paper-toggle-button{
+      --paper-toggle-button-checked-bar-color:green;
+      --paper-toggle-button-unchecked-bar-color:red;
+    }
+    </style>
+    <div hidden>
+    {{itemidget}}
+    {{qualityidget}}
+    {{elementnameget}}
+    {{flagvalue}}
+    {{getgrnnumber}}
+    {{containerno}}
+  </div>
+    <template is="dom-repeat" items="{{slider_response}}">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Testing</h3>
+        </div>
+        <div class="box-body">
+          <table class="table"> <!--  <table class="table"> for no border -->
+            <tr>
+              <th>&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195
+                &#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195
+                &#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195Actuals</th>
+            </tr>
+            <td style="width:100%">
+        <div id="slider_div_id">
+          <slider-paper-input index="{{index}}"
+                              items="{{items}}"
+                              parametername="{{item.quality_parameter_name}}"
+                              minimumvalue="{{item.minimum_value}}"
+                              maximumvalue="{{item.maximum_value}}"
+                              min="{{item.minimum_value}}"
+                              max="{{item.maximum_value}}"
+                              check="1"
+                              close="1">
+          </slider-paper-input>
+        </div>
+          </td>
+          </table>
+        </div>
+      </div>
+    </template>
+    <div id="dropdowncontent">
+      <template is="dom-repeat" items="{{dropdownrange}}">
+        <paper-dropdown-element
+                              qualityparameterrangevalue="{{item.quality_parameter_range_value}}"
+                              index="{{index}}">
+        </paper-dropdown-element>
+      </template>
+    </div>
+    <div id="togglecontent" style="width:100%">
+      <template is="dom-repeat" items="{{togglevalue}}">
+        <paper-toggle-element
+                              index="{{index}}"></paper-toggle-element>
+      </template>
+    </div>
+    <iron-ajax
+    id="valuetypeajax"
+    method="post"
+    url="{{valuetypeurl}}"
+    handle-as="json"
+    params="{{valuetypeparams}}"
+    on-response="valuetypecomplete">
+    </iron-ajax>
+    <iron-ajax
+    id="valuetypeajax1"
+    method="post"
+    url="{{valuetypeurl1}}"
+    handle-as="json"
+    params="{{valuetypeparams1}}"
+    on-response="valuetypecomplete1">
+    </iron-ajax>
+    <iron-ajax
+    id="valuetypeajax2"
+    method="post"
+    url="{{valuetypeurl2}}"
+    handle-as="json"
+    params="{{valuetypeparams2}}"
+    on-response="valuetypecomplete2">
+    </iron-ajax>
+  </template>
+ <script>
+    (function() {
+      'use strict';
+      var joinvalues=[];
+      var valuerangeresponse=[];
+      var valuerangeresponse1=[];
+      var valuerangeresponse2=[];
+      var j=0;
+      var arrayglobal=[];
+      var k="";
+      var entry_count=0;
+      var response_entry=0;
+      var PorF;
+  Polymer({
+      is: 'quality-parameter-range-value-service',
+
+        ready: function() {
+          // alert("quality-parameter-range-value-service");
+          entry_count++;
+          if(this.flagvalue==0)
+          {
+            // alert(this.flagvalue);
+            var dbnameobj={};
+            dbnameobj.itemid_get=this.itemidget;
+            dbnameobj.qualityid_get=this.qualityidget;
+            dbnameobj.flagvalue=this.flagvalue;
+            this.valuetypeparams=dbnameobj;
+            this.valuetypeurl="http://localhost:4000/qualityrangevalueservice";
+            this.$.valuetypeajax.generateRequest();
+          }
+          if(this.flagvalue==1)
+          {
+            var dbnameobj={};
+            dbnameobj.itemid_get=this.itemidget;
+            dbnameobj.qualityid_get=this.qualityidget;
+            dbnameobj.flagvalue=this.flagvalue;
+            this.valuetypeparams1=dbnameobj;
+            this.valuetypeurl1="http://localhost:4000/qualityrangevalueservice1";
+            this.$.valuetypeajax1.generateRequest();
+          }
+          if(this.flagvalue==2)
+          {
+            // alert(this.flagvalue);
+            var dbnameobj={};
+            dbnameobj.itemid_get=this.itemidget;
+            dbnameobj.qualityid_get=this.qualityidget;
+            dbnameobj.flagvalue=this.flagvalue;
+            this.valuetypeparams2=dbnameobj;
+            this.valuetypeurl2="http://localhost:4000/qualityrangevalueservice2";
+            this.$.valuetypeajax2.generateRequest();
+          }
+
+        },
+        valuetypecomplete:function(e){
+        response_entry++;
+        // this.slider_response="";
+        // this.slider_response=e.detail.response.returnval;
+        // this.items=this.slider_response;
+        valuerangeresponse=valuerangeresponse.concat(e.detail.response.returnval);
+        if(response_entry==entry_count){
+          this.slider_response="";
+           this.slider_response=valuerangeresponse;
+           this.items=valuerangeresponse;
+           response_entry=0;
+           entry_count=0;
+           valuerangeresponse=[];
+         }
+        },
+        valuetypecomplete2:function(e){
+          response_entry++;
+          // alert("e.detail.response.returnval"+JSON.stringify(e.detail.response.returnval));
+          // this.togglevalue="";
+          // this.togglevalue=e.detail.response.returnval;
+          // var valuerangeresponse_concat=[];
+          valuerangeresponse2=valuerangeresponse2.concat(e.detail.response.returnval);
+          // valuerangeresponse2=valuerangeresponse_concat.concat(valuerangeresponse2);
+          // alert("valuerangeresponse2"+JSON.stringify(valuerangeresponse2));
+          // alert("response_entry"+response_entry);
+          // alert("entry_count"+entry_count);
+          if(response_entry==entry_count){
+            this.togglevalue="";
+            // alert(JSON.stringify(valuerangeresponse2));
+             this.togglevalue=valuerangeresponse2;
+             response_entry=0;
+             entry_count=0;
+             valuerangeresponse2=[];
+           }
+        },
+ valuetypecomplete1:function(e){
+   response_entry++;
+  //  this.dropdownrange="";
+  //  this.dropdownrange=e.detail.response.returnval;
+   valuerangeresponse1=valuerangeresponse1.concat(e.detail.response.returnval);
+   if(response_entry==entry_count){
+     this.dropdownrange="";
+      this.dropdownrange=valuerangeresponse1;
+      response_entry=0;
+      entry_count=0;
+      valuerangeresponse1=[];
+    }
+ },
+ // inputvalues:function(x){
+ //  //  alert("inputvalues"+JSON.stringify(x))
+ //   for(var i=0;i<x.length;i++){
+ //   var z={"id":qid,"actualvalue":x[i].actualval,"status":PorF,"containerno":this.containerno,"grnnumber":this.getgrnnumber.grnnumber};
+ //   this.actualparam=z;
+ //   alert(JSON.stringify(this.actualparam));
+ //  //  console.log(JSON.stringify(this.actualparam));
+ //   this.$.SaveActualsIA.generateRequest();
+ // }
+ // },
+ // checkid:function(id){
+ //   qid=id;
+ // },
+ // HandleSaveActualsIA:function(e){
+ //   ++a;
+ //   alert(JSON.stringify(e.detail.response.serverres));
+ //   if(this.actualparam.length==a){
+ //     alert(JSON.stringify(e.detail.response.serverres));
+ //     document.querySelector("GRNcard-click-function").testid=qid;
+ //   }
+ // },
+ SaveActualsvalues:function(){
+   if(this.flagvalue==0){
+     document.querySelector("slider-paper-input").getactualsFn();
+   }
+   if(this.flagvalue==2){
+     document.querySelector("paper-toggle-element").getactualsFn();
+   }
+   if(this.flagvalue==1){
+     document.querySelector("paper-dropdown-element").getactualsFn();
+   }
+  //  if(this.flagvalue==1)
+ },
+ // pass: function() {
+ //  //  alert("pass")
+ //   PorF="pass";
+ //   this.colorcheck="#A2CD6F";
+ //   this.colorclose="grey";
+ // },
+ // fail: function() {
+ //  //  alert("fail");
+ //   PorF="fail";
+ //   this.colorclose="red";
+ //   this.colorcheck="grey";
+ // },
+
+    });
+  })();
+  </script>
+</dom-module>

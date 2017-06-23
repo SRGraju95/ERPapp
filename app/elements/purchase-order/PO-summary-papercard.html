@@ -1,0 +1,46 @@
+<dom-module id="PO-summary-papercard">
+<template>
+<style is="custom-style">
+  paper-card.rate {
+    @apply(--layout-horizontal);
+    width: 80%;
+    margin-left: 10%;
+   }
+  .rate-image {
+    width: 200px;
+    height: 170px;
+    background-size: cover;
+  }
+  .rate-content {
+    @apply(--layout-flex);
+    float: left;
+  }
+  .rate-header { @apply(--paper-font-headline); }
+  .rate-name { color: var(--paper-grey-600); margin: 10px 0; }
+  paper-icon-button.rate-icon {
+    --iron-icon-fill-color: white;
+    --iron-icon-stroke-color: var(--paper-grey-600);
+  }
+</style>
+<paper-card class="rate" bottom-elevation>
+  <div class="rate-content">
+    <div class="card-content">
+      <div class="rate-header">{{purchase_order_number}}</div><div class="rate-name">{{price}}</div>
+      <div>{{purchase_order_date}}</div>
+      <div>{{reference_id}}</div>
+      <div class="rate-name">{{item_quantity}}</div>
+      <div>{{totalprice}}</div>
+      <div>{{supplier_name}}</div>
+    </div>
+  </div>
+  <div class="rate-image" style="background: url({{imageurl}});"></div>
+</paper-card>
+</template>
+<script>
+Polymer({
+  is:"PO-summary-papercard",
+  ready:function(){
+  }
+});
+</script>
+</dom-module>

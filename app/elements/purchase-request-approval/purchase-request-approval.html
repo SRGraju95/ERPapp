@@ -1,0 +1,65 @@
+<dom-module id="purchase-request-approval">
+  <template>
+  <style is="custom-style">
+    .cafe-header { @apply(--paper-font-headline); }
+    .cafe-light { color: var(--paper-grey-600); }
+    .cafe-location {
+      float: right;
+      font-size: 15px;
+      vertical-align: middle;
+    }
+    .cafe-reserve { color: var(--google-blue-500); }
+    iron-icon.star {
+      --iron-icon-width: 16px;
+      --iron-icon-height: 16px;
+      color: var(--paper-amber-500);
+    }
+    iron-icon.star:last-of-type { color: var(--paper-grey-500); }
+  </style>
+  <paper-card image="../../dist/img/no_image.jpg" on-click="openpurchase_requestdetails" style="margin-top:6px;margin-left:15px;">
+    <div class="cafe-header">&nbsp{{itemname}}</div>
+    <div class="card-content">
+      <div class="rate-name">
+        <div hidden>{{itemtypename}}</div>
+        <table>
+          <tr><td>Item Quantity</td><td>{{iquantity}}</td></tr>
+          <tr><td>Container Quantity</td><td>{{cquantity}}</td></tr>
+        </table>
+      </div>
+    </div>
+  </paper-card>
+  </template>
+  <script>
+  Polymer({
+    is:"purchase-request-approval",
+
+    openpurchase_requestdetails:function(){
+      document.querySelector('home-page').FnSetPage("display-purchase-request-approval");
+      document.querySelector('display-purchase-request-approval').purchase_requests(this.intnumber,
+                                                                this.intdate,
+                                                                this.purchase_requesttype,
+                                                                this.itemid,
+                                                                this.iquantity,
+                                                                this.cquantity,
+                                                                this.whstoresid,
+                                                                this.status,
+                                                                this.ireqdate,
+                                                                this.itemid,
+                                                                this.itemname,
+                                                                this.itemdescription,
+                                                                this.itemspecification1,
+                                                                this.itemspecification2,
+                                                                this.containerid,
+                                                                this.unitofmeasures,
+                                                                this.itemgroup,
+                                                                this.itemtypeid,
+                                                                this.itemstatus,
+                                                                this.itempurchasetype,
+                                                                this.warehouselocation,
+                                                                this.deptname,
+                                                                this.itemtypename,
+                                                                this.containername);
+    }
+  })
+  </script>
+</dom-module>

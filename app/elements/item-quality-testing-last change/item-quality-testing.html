@@ -1,0 +1,203 @@
+<link rel="import" href="slider-paper-input.html">
+<dom-module id="item-quality-testing">
+  <style>
+  #insertionPoint{
+    cursor: pointer;
+  }
+  </style>
+  <template>
+    <div hidden>{{grnnumber}}</div>
+    <div hidden>{{index}}</div>
+    <!-- <section class="content"> -->
+      <div class="row" on-click="test_index">
+        <template is="dom-repeat" items="{{item_quality_parameter}}">
+            <quality-parameter-type-value-service
+                 itemidget="{{item.item_id}}"
+                 qualityidget="{{item.quality_parameter_id}}"
+                 elementnameget="item-quality-testing">
+            </quality-parameter-type-value-service>
+        </template>
+        <template id="rangevalueid" is="dom-bind">
+        <template is="dom-repeat" items="{{itemqualityparameterrange}}">
+          <!-- <div>{{item.quality_parameter_type_flag}}</div> -->
+           <quality-parameter-range-value-service
+                             itemidget="{{item.item_id}}"
+                             qualityidget="{{item.quality_parameter_id}}"
+                             elementnameget="item-quality-testing"
+                             flagvalue="{{item.quality_parameter_type_flag}}">
+            </quality-parameter-range-value-service>
+        </template>
+      </template>
+        <!-- <div class=""> -->
+          <div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title">Testing</h3>
+            </div>
+            <div class="box-body">
+              <table class="table"> <!--  <table class="table"> for no border -->
+                <tr>
+                  <th>&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195
+                    &#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195
+                    &#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195Actuals</th>
+                    <!-- <th>Actuals</th> -->
+                  <!-- <th class="text-center">Actuals</th> -->
+                </tr>
+                <!-- <slider-paper-input check="1" close="1" hidden></slider-paper-input> -->
+                <td style="width:100%">
+                  <div hidden>{{containerno}}</div>
+              <template id="slider_dom_id" is="dom-bind">
+                <template is="dom-repeat" items="{{slider_response}}">
+                  asdasdsa
+                  <slider-paper-input index="{{index}}"
+                                      items="{{items}}"
+                                      parametername="{{item.quality_parameter_name}}"
+                                      minimumvalue="{{item.minimum_value}}"
+                                      maximumvalue="{{item.maximum_value}}"
+                                      min="{{item.minimum_value}}"
+                                      max="{{item.maximum_value}}"
+                                      check="1"
+                                      close="1">
+                  </slider-paper-input>
+                  <!-- uid="10" -->
+                  <!-- uid="{{_doneId(item.minimum_value)}}" -->
+                </template>
+              </template>
+              </td>
+              </table>
+            </div>
+            <div class"box-footer clearfix">
+              <div>&#8195&#8195&#8195&#8195&#8195&#8195
+                <a on-click="pass" id="insertionPoint">
+                  <span id="up" class="glyphicon glyphicon-thumbs-up" style="font-size: 30px;color:{{colorcheck}}"></span>
+                </a>
+                &#8195&#8195
+                <a on-click="fail" id="insertionPoint">
+                  <span id="down" class="glyphicon glyphicon-thumbs-down" style="font-size: 30px;color:{{colorclose}};"></span>
+                </a>
+              </div>
+              <div>
+                <center>
+                  <a class="btn btn-app" on-click="SaveActuals" style="">
+                    <i class="fa fa-save"></i>Save
+                  </a>
+                </center>
+              </div>
+            </div>
+          </div>
+        <!-- </div> -->
+      </div>
+    <!-- </section> -->
+    <iron-ajax
+      auto
+      method="post"
+      params="{{getgrnnumber}}"
+      url="http://localhost:4000/testingdata"
+      on-request="request_test"
+      handle-as="json"
+      on-response="handletestingdata">
+    </iron-ajax>
+    <iron-ajax
+      id="SaveActualsIA"
+      method="post"
+      url="http://localhost:4000/saveactual"
+      params="{{actualparam}}"
+      handle-as="json"
+      on-response="HandleSaveActualsIA">
+    </iron-ajax>
+    <check-autogenid stringname="qtest"
+                     elementname="item-quality-testing">
+    </check-autogenid>
+  </template>
+</dom-module>
+<script type="text/javascript">
+  var actualsValue;
+  var qid;
+  var PorF;
+  var y=[];
+  var l=[];
+  var a=0;
+  var entry_count=0;
+  var response_entry=0;
+  var qualityparameterrange_global_arr=[];
+  Polymer({
+    is: "item-quality-testing",
+    attached: function() {
+      alert("item-quality-testing");
+      entry_count++;
+      // this.itemqualityparameterrange=null;
+      // this.getgrnnumber=this.grnnumber;
+      // alert(dom_repeat.itemqualityparameterrange)
+      // alert("quality-parameter-type-value-service");
+      // this.itemqualityparameterrange="";
+      qualityparameterrange_global_arr=[];
+    },
+    HandleSaveActualsIA:function(e){
+      ++a;
+      // alert(JSON.stringify(e.detail.response.serverres));
+      if(this.actualparam.length==a){
+        alert(JSON.stringify(e.detail.response.serverres));
+        document.querySelector("GRNcard-click-function").testid=qid;
+      }
+    },
+    SaveActuals:function(){
+      document.querySelector("slider-paper-input").getactualsFn();
+    },
+    pass: function() {
+      PorF="pass";
+      this.colorcheck="#A2CD6F";
+      this.colorclose="grey";
+    },
+    fail: function() {
+      PorF="fail";
+      this.colorclose="red";
+      this.colorcheck="grey";
+    },
+    inputvalues:function(x){
+      for(var i=0;i<x.length;i++){
+      var z={"id":qid,"actualvalue":x[i].actualval,"status":PorF,"containerno":this.containerno,"grnnumber":this.getgrnnumber.grnnumber};
+      this.actualparam=z;
+      this.$.SaveActualsIA.generateRequest();
+    }
+    },
+    checkid:function(id){
+      qid=id;
+    },
+    handletestingdata:function(e){
+      this.item_quality_parameter="";
+      this.item_quality_parameter=e.detail.response.returnval;
+      // this.itemqualityparameterrange="";
+      alert(JSON.stringify(this.item_quality_parameter));
+      // this.items=this.response/// important when you see slider element
+    },
+    qualityserviceback:function(data){
+      // alert(JSON.stringify(data));
+      var qualityparameterrange_local_arr=[];
+      for(var i=0;i<data.length;i++){
+        qualityparameterrange_global_arr.push(data[i]);
+      }
+      var dom_repeat=this.querySelector('#rangevalueid');
+      if(!dom_repeat.itemqualityparameterrange){
+        dom_repeat.itemqualityparameterrange=[];
+      }
+      // alert("qualityparameterrange_global_arr"+JSON.stringify(qualityparameterrange_global_arr));
+      for(var i=0;i<qualityparameterrange_global_arr.length;i++){
+        dom_repeat.push('itemqualityparameterrange',qualityparameterrange_global_arr[i]);
+      }
+      // alert("dom_repeat.itemqualityparameterrange"+JSON.stringify(dom_repeat.itemqualityparameterrange));
+    },
+    flag0serviceback:function(data){
+      // qualityparameterrange_global_arr=[];
+      alert(JSON.stringify(data));
+      var dom_repeat=this.querySelector('#slider_dom_id');
+      if(!dom_repeat.slider_response){
+        dom_repeat.slider_response=[];
+      }
+      for(var i=0;i<data.length;i++){
+        dom_repeat.push('slider_response',data[i])
+    }
+    },
+    // request_test:function(){
+    //   alert("request calling")
+    // }
+  });
+</script>

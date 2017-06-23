@@ -1,0 +1,95 @@
+<link rel="import" href="../ironajax-GRNcard/ironajax-GRNcard.html">
+<dom-module id="grn-quality">
+  <template>
+    <!-- <google-analytics> -->
+    <!-- <div id="columnchart_material" style="width: 800px; height: 500px;"></div> -->
+    <div id="chart_div">
+        <!-- <google-analytics-chart
+          type="column"
+          ids="ga:1174"
+          metrics="ga:sessions"
+          dimensions="ga:country"
+          sort="-ga:sessions"
+          max-results="5"
+          rendered="{{rendered}}"
+          rendered-changed="rederchecck"
+          options="{{options}}">stsefr
+        </google-analytics-chart> -->
+      </div>
+      <!-- </google-analytics> -->
+    <ironajax-GRNcard grnprocessmethod="post"
+                      name="quality"
+                      elementname="grn-quality"></ironajax-GRNcard>
+    <template is="dom-repeat" items="{{grncardcontent}}">
+      <GRN-card title="quality"
+                itemname="{{item.item_name}}"
+                itemspecification1="{{item.item_specification1}}"
+                suppliername="{{item.supplier_name}}"
+                invoice_no="{{item.invoice_number}}"
+                invoice_date="{{item.invoice_date}}"
+                inward_register_number="{{item.inward_register_number}}"
+                item_quantity="{{item.item_quantity}}"
+                container_quantity="{{item.container_quantity}}"
+                container_id="{{item.container_id}}"
+                unit_of_measure_id="{{item.unit_of_measure_id}}"
+                po_number="{{item.po_number}}"
+                po_date="{{item.po_date}}"
+                images="../../images/quality.jpg"
+                qualityhidden_var="0"
+                overallthumbsuphiddenvar="1"></GRN-card>
+    </template>
+  </template>
+  <script>
+      Polymer({
+        is:"grn-quality",
+        attached:function(){
+          google.charts.load('current', {packages: ['corechart', 'bar']});
+          google.charts.setOnLoadCallback(drawBasic);
+
+    function drawBasic() {
+
+          var data = new google.visualization.DataTable();
+          data.addColumn('timeofday', 'Time of Day');
+          data.addColumn('number', 'Motivation Level');
+
+          data.addRows([
+            [{v: [8, 0, 0], f: '8 am'}, 1],
+            [{v: [9, 0, 0], f: '9 am'}, 2],
+            [{v: [10, 0, 0], f:'10 am'}, 3],
+            [{v: [11, 0, 0], f: '11 am'}, 4],
+            [{v: [12, 0, 0], f: '12 pm'}, 5],
+            [{v: [13, 0, 0], f: '1 pm'}, 6],
+            [{v: [14, 0, 0], f: '2 pm'}, 7],
+            [{v: [15, 0, 0], f: '3 pm'}, 8],
+            [{v: [16, 0, 0], f: '4 pm'}, 9],
+            [{v: [17, 0, 0], f: '5 pm'}, 10],
+          ]);
+
+          var options = {
+            title: 'Motivation Level Throughout the Day',
+            hAxis: {
+              title: 'Time of Day',
+              format: 'h:mm a',
+              viewWindow: {
+                min: [7, 30, 0],
+                max: [17, 30, 0]
+              }
+            },
+            vAxis: {
+              title: 'Rating (scale of 1-10)'
+            }
+          };
+
+    //       var chart = new google.visualization.ColumnChart(
+    //         document.getElementById('chart_div'));
+    //
+    //       chart.draw(data, options);
+    //     }
+      //
+                    // alert(this.rendered);
+                  }
+        },
+
+        });
+  </script>
+</dom-module>

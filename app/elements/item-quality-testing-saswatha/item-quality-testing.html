@@ -1,0 +1,356 @@
+
+<dom-module id="item-quality-testing">
+    <template>
+  <style>
+  #insertionPoint{
+    cursor: pointer;
+  }
+  :host {
+    display: block;
+  }
+  input[type=range] {
+    -webkit-appearance: none;
+    margin: 10px 0;
+    width: 100%;
+  }
+  input[type=range]:focus {
+    outline: none;
+  }
+  input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 10px;
+    cursor: pointer;
+    animate: 0.2s;
+    background: #C6C4C4;
+    border-radius: 5px;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    box-shadow: 1px 1px 1px #000000;
+    border: 1px solid #000000;
+    height: 20px;
+    width: 10px;
+    border-radius: 5px;
+    background: #FFFFFF;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -6px;
+  }
+  input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #C6C4C4;
+  }
+  input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 10px;
+    cursor: pointer;
+    animate: 0.2s;
+    box-shadow: 1px 1px 1px #000000;
+    background: #3071A9;
+    border-radius: 5px;
+    border: 1px solid #000000;
+  }
+  input[type=range]::-moz-range-thumb {
+    box-shadow: 1px 1px 1px #000000;
+    border: 1px solid #000000;
+    height: 30px;
+    width: 15px;
+    border-radius: 5px;
+    background: #FFFFFF;
+    cursor: pointer;
+  }
+  input[type=range]::-ms-track {
+    width: 100%;
+    height: 10px;
+    cursor: pointer;
+    animate: 0.2s;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+  }
+  input[type=range]::-ms-fill-lower {
+    background: #3071A9;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px #000000;
+  }
+  input[type=range]::-ms-fill-upper {
+    background: #3071A9;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px #000000;
+  }
+  input[type=range]::-ms-thumb {
+    box-shadow: 1px 1px 1px #000000;
+    border: 1px solid #000000;
+    height: 30px;
+    width: 15px;
+    border-radius: 5px;
+    background: #FFFFFF;
+    cursor: pointer;
+  }
+  input[type=range]:focus::-ms-fill-lower {
+    background: #3071A9;
+  }
+  input[type=range]:focus::-ms-fill-upper {
+    background: #3071A9;
+  }
+  #para
+  {
+    width:22%;
+  }
+  #slider{
+    width:56%;
+    /*padding-left:20%;*/
+  }
+  #paperinput{
+    /*width:30%;*/
+    padding-left:2%;
+  }
+  .range.range-primary output {
+      background-color: rgb(66, 139, 202);
+       margin-left: 155px;
+      margin-top: 10px;
+  }
+  .range output {
+      display: table;
+      /*padding: 3px 5px 2px;*/
+      min-width: 40px;
+      color: rgb(255, 255, 255);
+      background-color: rgb(153, 153, 153);
+      text-align: center;
+      text-decoration: none;
+      border-radius: 4px;
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
+      width:50px ;
+      white-space: nowrap;
+      vertical-align: middle;
+      /*margin-left: 500px;*/
+      -webkit-transition: all 0.5s ease;
+      -moz-transition: all 0.5s ease;
+      -o-transition: all 0.5s ease;
+      -ms-transition: all 0.5s ease;
+      transition: all 0.5s ease;
+
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: -moz-none;
+      -o-user-select: none;
+      user-select: none;
+    }
+    .maximumordered {
+        min-width: 40px;
+        color: rgb(255, 255, 255);
+        background-color: rgb(153, 153, 153);
+        text-align: center;
+
+        text-decoration: none;
+        border-radius: 4px;
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+        width:50px ;
+        white-space: nowrap;
+        vertical-align: middle;
+        /*margin-left: 500px;*/
+        -webkit-transition: all 0.5s ease;
+        -moz-transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
+        -ms-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: -moz-none;
+        -o-user-select: none;
+        user-select: none;
+      }
+   .maximumordered{
+       margin-left: 358px;
+       background-color: rgb(66, 139, 202);
+      /*margin-top: 20px;*/
+    }
+   .rate-header { @apply(--paper-font-headline);
+         font-size: 20px;
+     }
+   .totaldesign
+   {
+       margin-left: 65px;
+   }
+  </style>
+      <div class="row">
+        <div id="itemqualityservice_div_id">
+          <template is="dom-repeat" as="item1" items="{{itemqualityservice}}">
+              <quality-parameter-type-value-service
+                   itemidget="{{item1.item_id}}"
+                   qualityidget="{{item1.quality_parameter_id}}"
+                   elementnameget="item-quality-testing"
+                   getgrnnumber="{{getgrnnumber}}">
+                 </quality-parameter-type-value-service>
+          </template>
+        </div>
+    <!-- **********third run******** -->
+    <div id="rangequalityservice_div_id">
+      <div hidden>{{qualityidservice}}</div>
+      <!-- <quality-parameter-range-value-service></quality-parameter-range-value-service> -->
+        <!-- <template is="dom-repeat" as=item2 items="{{rangequalityservice}}">
+          rangequalityservice_local_arr
+          <quality-parameter-range-value-service
+            itemidget="{{item2.item_id}}"
+            qualityidget="{{qualityidservice}}"
+            elementnameget="item-quality-testing"
+            flagvalue="{{item2.quality_parameter_type_flag}}"
+          ></quality-parameter-range-value-service>
+        </template> -->
+      </div>
+          <!-- <div class="col-sm-4"> -->
+          <div id="slidercontent">
+            <template is="dom-repeat" items="{{sliderminmax}}">
+              <td id="slider">
+                <input type="range"></input>
+                  <span>
+                    {{item.minimum_value}}&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195
+                  &#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195{{item.maximum_value}}
+                 </span>
+              </td>
+            </template>
+          </div>
+        <!-- </div> -->
+        <!-- <div class="col-sm-4"> -->
+          <!-- <div id="dropdowncontent" hidden="{{dropdowncontentdivhidden}}">
+                <paper-dropdown-menu label="Quality Range value">
+                  <paper-listbox class="dropdown-content">
+                    <template is="dom-repeat" items="{{dropdownrange}}">
+                      <paper-item >{{item.quality_parameter_range_value}}</paper-item>
+                    </template>
+                  </paper-listbox>
+                </paper-dropdown-menu>
+          </div> -->
+          <!-- </div> -->
+          <!-- <div class="col-sm-4"> -->
+          <!-- <div id="togglecontent">
+            <template is="dom-repeat" items="{{togglevalue}}">
+              <!-- <paper-card elevation="1">
+                <paper-toggle-button checked>{{item.toggle_value}}</paper-toggle-button>
+            <!-- </paper-card>
+            </template>
+          </div> -->
+        <!-- </div> -->
+    </div>
+    <!-- *********get quality id by using IRN number******* -->
+    <iron-ajax
+      auto
+      method="post"
+      params="{{getgrnnumberparams}}"
+      url="http://localhost:4000/testingdata"
+      handle-as="json"
+      on-response="handletestingdata">
+    </iron-ajax>
+  </template>
+
+<script type="text/javascript">
+
+    (function() {
+      'use strict';
+      var rangearray1=[];
+      var rangearray=[];
+      var rangearray2=[];
+      var valuerangeresponse="";
+      var valuerangeresponse1="";
+      var valuerangeresponse2="";
+      var qualityarray=[];
+      var valueresponse_global_arr=[];
+        Polymer({
+      is: "item-quality-testing",
+        ready:function(){
+          // qualityarray=[];
+          this.dropdowncontentdivhidden=true;
+          // this.rangequalityservice_div_hidden=true;
+          valueresponse_global_arr=[];
+          alert("item-quality-testing");
+          var obj={"getgrnnumber":"irn267"};
+          this.getgrnnumberparams=obj;
+          },
+          handletestingdata:function(e){    //quality_id,item_id recieve
+          var local_arr=[];
+          // alert("local_arr"+JSON.stringify(local_arr));
+          this.itemqualityservice="";
+          qualityarray=e.detail.response.returnval;
+          for(var i=0;i<qualityarray.length;i++){
+            local_arr.push(qualityarray[i]);
+          }
+          // alert("local_arr"+JSON.stringify(local_arr));
+          this.itemqualityservice=local_arr;
+          // alert(JSON.stringify(this.itemqualityservice));
+          for(var i=0;i<=qualityarray.length;i++){
+            var qualityarray1=qualityarray[i].quality_parameter_id;
+            // alert(qualityarray1)
+            this.qualityidservice=qualityarray1;
+          }
+        },
+        // ***********back function from service 1*************
+        //   qualityitemidback:function(array1){
+        //   var array2=array1;
+        //   // alert(JSON.stringify(array2));
+        //   this.itemqualityservice=array2;
+        // },
+          // ***********back function from service 2*************
+        qualityserviceback:function(valueresponse){
+          var rangequalityservice_local_arr=[];
+          valueresponse_global_arr=valueresponse;
+          // alert(JSON.stringify(valueresponse_global_arr));
+          for(var i=0;i<valueresponse_global_arr.length;i++){
+            // rangequalityservice_local_arr.push(valueresponse_global_arr[i]);
+            var rangequalityservice_el=document.createElement("quality-parameter-range-value-service");
+            var element = this.$.rangequalityservice_div_id.querySelector("*");
+            var ironpage=this.querySelector("#rangequalityservice_div_id");
+            // if (element) {
+            //   element.parentNode.removeChild(element);
+            // }
+            this.$.rangequalityservice_div_id.append(rangequalityservice_el);
+            // alert(valueresponse_global_arr[i].item_id)
+            // alert(this.qualityidservice);
+            // alert(valueresponse_global_arr[i].quality_parameter_type_flag);
+            document.querySelector("quality-parameter-range-value-service").itemidget=valueresponse_global_arr[i].item_id;
+            document.querySelector("quality-parameter-range-value-service").qualityidget=this.qualityidservice;
+            document.querySelector("quality-parameter-range-value-service").flagvalue=valueresponse_global_arr[i].quality_parameter_type_flag;
+            document.querySelector("quality-parameter-range-value-service").elementnameget="item-quality-testing";
+            document.querySelector("quality-parameter-range-value-service").getvalues_Fn();
+          }
+          // this.rangequalityservice=[];
+          //  this.rangequalityservice=rangequalityservice_local_arr;
+          //  alert(JSON.stringify(this.rangequalityservice));
+        },
+          // ***********back function from service 3*************
+        flag0serviceback:function(valuerangeresponse){
+          // alert("flag 0 gdhg"+JSON.stringify(valuerangeresponse));
+          valuerangeresponse=valuerangeresponse;
+          this.sliderminmax=valuerangeresponse;
+        },
+        flag1serviceback:function(valuerangeresponse1){
+          this.dropdowncontentdivhidden=false;
+          var dropdowndisplay_arr=[];
+          alert("flag 1 drfgy"+JSON.stringify(valuerangeresponse1));
+          valuerangeresponse1=valuerangeresponse1;
+          // this.dropdowndisplay=[];
+          // for(var i=0;i<1;i++){
+          //   dropdowndisplay_arr.push({})
+          // }
+          // alert("this.dropdowndisplay"+this.dropdowndisplay);
+          // this.dropdowndisplay=dropdowndisplay_arr;
+          // alert("this.dropdowndisplay"+JSON.stringify(this.dropdowndisplay));
+          this.dropdownrange="";
+          for(var i=0;valuerangeresponse1.length>i;i++){
+            dropdowndisplay_arr.push(valuerangeresponse1[i])
+          }
+          this.dropdownrange=dropdowndisplay_arr;
+        },
+        flag2serviceback:function(valuerangeresponse2){
+          // alert("flag 2 drfgy"+JSON.stringify(valuerangeresponse2));
+           valuerangeresponse2=valuerangeresponse2;
+           this.togglevalue=valuerangeresponse2;
+
+        }
+
+      });
+        })();
+</script>
+</dom-module>

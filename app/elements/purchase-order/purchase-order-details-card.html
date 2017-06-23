@@ -1,0 +1,425 @@
+<link rel="import" href="../prizing-strategy/prizing-strategy.html">
+<link rel="import" href="../custom-papercard/custom-papercard.html">
+<link rel="import" href="../save-pdf-file/save-pdf-file.html">
+<link rel="import" href="PO-summary-papercard.html">
+<dom-module id="purchase-order-details-card">
+  <template>
+    <style>
+    #div2{
+      margin-top: 10%;
+    }
+    hr {
+        border-style: dotted;
+        border-width: 2px;
+        width: 60%;
+        /*margin-left:38%*/
+      }
+      #row1{
+        margin-bottom:5%;
+      }
+    #divid{
+      @apply(--layout-horizontal);
+    }
+    /*#div1{
+      margin-left: 25%;
+    }*/
+    paper-input{
+    --paper-input-container-underline: {
+      display: none;
+    }
+  }
+  .alert {
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+    opacity: 1;
+    transition: opacity 0.6s;
+    margin-bottom: 15px;
+}
+
+.alert.success {background-color: #4CAF50;}
+.alert.info {background-color: #2196F3;}
+.alert.warning {background-color: #ff9800;}
+
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.closebtn:hover {
+    color: black;
+}
+    </style>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6"></div>
+          <div class="col-sm-6">
+            <!-- <paper-button style="float:right;font-size: 32px;" raised on-click="backFn" class="fa fa-backward"></paper-button> -->
+            <i class="fa fa-arrow-left" style="float:right;font-size: 32px;margin-bottom:5%;" on-click="backFn"></i>
+                    </div>
+      </div>
+    <div class="row" id="row1" hidden="{{pdf_mail_div_hide}}">
+      <div class="col-sm-6"></div>
+        <div style="margin-left:80%" class="col-sm-6">
+          <paper-button raised on-click="view_pdf_Fn" >View PDF</paper-button>
+          <paper-button raised on-click="send_mail_Fn">Send Mail</paper-button>
+        </div>
+      </div>
+  <div hidden="{{template_hidden}}">
+    <template  is="dom-repeat" items="{{displaydetails}}">
+      <div class="col-sm-6" style="margin-top: 15%;">
+        <custom-papercard
+                          imageurl="../../images/no_image.jpg"
+                          purchase_request_number={{item.purchase_request_number}}
+                          itemtype={{item.itype}}
+                          itemname={{item.itemname}}
+                          warehousestoresname={{item.warehouselocation}}
+                          containerquantity={{item.cquantity}}
+                          containerid={{item.containerid}}
+                          itemspecification1={{item.itemspecification1}}></custom-papercard>
+      </div>
+      <div class="col-sm-6" id="purchaseorder_id">
+        <div id="P_O_details_id" hidden="{{purchaseorder_hidden_div}}">
+          <paper-card style="width:100%;margin-bottom:5%;" bottom-elevation>
+            <div class="card-content">
+              <div hidden>{{check_status}}</div>
+              <div><b>Purchase Order</b></div>
+              <div id="divid">
+                <paper-input style="width:50%"  label="PO Number" value="{{po_numberval}}"></paper-input>
+                <paper-input style="width:50%"  label="PO Date" value="{{item.podateval}}" readonly></paper-input>
+              </div>
+               <!-- <div id="divid"> -->
+                 <paper-input label="Supplier Name" is="" value="{{value2}}" on-keydown="FnSearchEnquiry2"></paper-input>
+                 <paper-menu class="dropdown-content" id="transportinput4" on-iron-select="FnSelectEnquiry3" attr-for-selected="value" selected="{{selectedname}}">
+                  <template is="dom-repeat" items="{{supplierArray}}" as="item1">
+                    <paper-item value="{{item1.supplier_id}}">{{item1.supplier_name}}</paper-item>
+                  </template>
+                </paper-menu>
+               <!-- </div> -->
+               <div id="divid">
+                 <paper-input  style="width:30%" id="itemquantity" label="Item Quantity" value="[[item.iquantity]]" on-value-changed="quantityconditionchkFn"></paper-input>
+                 <paper-input style="width:20%" value="{{item.unit_of_measure_id}}" readonly></paper-input>
+                 <div id="alertclose_id">
+                   <div class="alert" hidden="{{exceedcoditionhidden}}">
+                    <span class="closebtn" on-click="alertcloseFn" >&times;</span>
+                    <strong>Danger!</strong> {{exceedcodition}}
+                   </div>
+
+                  <div class="alert success" hidden="{{fullfillcondhidden}}">
+                    <span class="closebtn" on-click="alertcloseFn">&times;</span>
+                    <strong>Success!</strong> {{fullfillcond}}
+                  </div>
+
+                  <div class="alert info" hidden="{{partialcoditionhidden}}">
+                    <span class="closebtn" on-click="alertcloseFn">&times;</span>
+                    <strong>Info!</strong> {{partialcodition}}
+                  </div>
+                </div>
+               </div>
+               <!-- <span style="color:green;" hidden="{{fullfillcondhidden}}">{{fullfillcond}}</span>
+               <span id="exceed_id" style="color:red;" hidden="{{exceedcoditionhidden}}">{{exceedcodition}}</span>
+               <span style="color:blue;" hidden="{{partialcoditionhidden}}">{{partialcodition}}</span> -->
+
+
+               <div id="divid">
+                 <paper-input style="width:50%" label="Price per {{item.unit_of_measure_id}}" value="{{pricingvalue}}" on-value-changed="cal_totalprize"></paper-input>
+                 <!-- <paper-dropdown-menu style="width:50%" label="Price per {{item.unit_of_measure_id}}" style="width:100%;" hidden="{{dropdowndisplay}}">
+                 <paper-menu class="dropdown-content" attr-for-selected="value" selected="{{priceselection}}" on-click="cal_totalprize">
+                    <template is="dom-repeat" items="{{prizeval}}">
+                       <paper-item value="{{item.pricing}}">{{item.pricing}}</paper-item>
+                    </template>
+                   </paper-menu>
+                 </paper-dropdown-menu> -->
+                 <paper-input style="width:50%;"  label="Total Prize" value="{{totalprizeval}}"></paper-input>
+              </div>
+              <!-- <paper-input style="width:50%;margin-left:50%;" label="Required Date" value={{item.reqdate}} readonly></paper-input> -->
+              <div style="width:50%;margin-left:80%;">Required Date:<div>{{item.reqdate}}</div></div>
+
+             </div>
+             <center><paper-button style="margin-bottom:7%;" raised disabled="{{purchaseordercreatebtn_disable}}" on-click="purchaseordercreate">Creat Purchase Order</paper-button></center>
+           </paper-card>
+       </div>
+       <div id="div1" hidden="{{PO_summarypapercard_hide}}">
+         <template is="dom-repeat" items="{{PO_summarypapercard}}" id="templateid" on-dom-change="checkfn">
+           <PO-summary-papercard
+                                imageurl="../../images/no_image.jpg"
+                                purchase_order_number={{item.po_number}}
+                                purchase_order_date={{item.po_date}}
+                                reference_id={{item.reference_id}}
+                                item_quantity={{item.item_quantity}}
+                                supplier_name={{item.supplier_name}}
+                                totalprice={{item.totalprice}}></PO-summary-papercard>
+                                <hr>
+         </template>
+         <!-- <PO-summary-papercard PO_summarypapercard="{{PO_summarypapercard}}"></PO-summary-papercard> -->
+      </div>
+     </div>
+  </template>
+  </div>
+  <div id="div2">
+    <center><paper-button hidden="{{addpurchase_btn_hide}}" on-click="addpurchase_order_create" raised >Add Purchase Order</paper-button></center>
+  </div>
+  <div hidden="{{view_pdf_hide}}"><embed src="../../images/{{pdf_ponumber}}_Purchaseorder.pdf" style="width:1000px;height:1000px;" /></div>
+</div>
+        <iron-ajax
+          id="p_o_create_id"
+          method="post"
+          url="http://localhost:4000/p_o_create_info"
+          params="{{p_o_create_params}}"
+          handle-as="json"
+          on-response="p_o_create_response"></iron-ajax>
+          <iron-ajax
+            id="send_mail_ajax_id"
+            method="post"
+            params="{{send_mail_ajax_params}}"
+            url="http://localhost:4000/send_mail_info"
+            handle-as="json"
+            on-response="send_mail_ajax_response_fn"></iron-ajax>
+
+</template>
+      <script>
+      var item1;
+      var sample=[{}];
+      var itemquantityvalue;
+      var supplierid;
+      var PO_summary_array=[];
+        Polymer({
+          is:"purchase-order-details-card",
+          ready:function(){
+            this.template_hidden=false;
+            this.pdf_mail_div_hide=true;
+            this.dropdowndisplay=true;
+            PO_summary_array=[];
+            this.fullfillcond="fullfill condition";
+            this.partialcoditionhidden=true;
+            this.fullfillcondhidden=false;
+            this.exceedcoditionhidden=true;
+            this.purchaseordercreatebtn_disable=false;
+            this.purchaseorder_hidden_div=false;
+            this.addpurchase_btn_hide=true;
+            this.view_pdf_hide=true;
+          },
+          totaldataFn:function(data){
+            item1=data;
+          },
+          quantityconditionchkFn:function(){
+            var displaydata=this.displaydetails;
+            itemquantityvalue=document.querySelector("#itemquantity").value;
+            if(Number(itemquantityvalue)<Number(displaydata[0].iquantity)){
+              this.check_status="";
+              document.getElementById('alertclose_id').style.display='block';
+              this.partialcoditionhidden=0;
+              this.fullfillcondhidden=1;
+              this.exceedcoditionhidden=1;
+              this.purchaseordercreatebtn_disable=false;
+              document.querySelector("purchase-order-details-card").cal_totalprize();
+              this.partialcodition="partial condition 'below'"+displaydata[0].iquantity;
+            }
+            else if (Number(itemquantityvalue)==Number(displaydata[0].iquantity)) {
+              this.check_status="fullfill";
+              document.getElementById('alertclose_id').style.display='block';
+              this.partialcoditionhidden=1;
+              this.fullfillcondhidden=0;
+              this.partialcodition="";
+              this.exceedcoditionhidden=1;
+              this.fullfillcond="fullfill condition'equal to'"+displaydata[0].iquantity;
+              this.purchaseordercreatebtn_disable=false;
+              // this.addpurchase_btn_hide=true;
+              this.purchaseorder_hidden_div=false;
+              document.querySelector("purchase-order-details-card").cal_totalprize();
+            }
+            else{
+              this.check_status="";
+              document.getElementById('alertclose_id').style.display='block';
+              this.partialcodition="";
+              this.partialcoditionhidden=1;
+              this.fullfillcondhidden=1;
+              this.exceedcoditionhidden=0;
+              this.exceedcodition="exceed condition 'above'"+displaydata[0].iquantity;
+              this.purchaseordercreatebtn_disable=true;
+              this.addpurchase_btn_hide=true;
+            }
+          },
+          purchaseordercreate:function(e){
+            this.addpurchase_btn_hide=true;
+            // this.pdf_mail_div_hide=false;
+            var localarray=[];
+            alert(this.displaydetails[0].purchase_request_number);
+            this.p_o_create_params={po_number:this.po_numberval,
+                                    po_date:this.displaydetails[0].podateval,
+                                    pr_number:this.displaydetails[0].purchase_request_number,
+                                    supplier_id:supplierid,
+                                    supplier_name:this.value2,
+                                    supplier_add1:this.displaydetails[0].suppier_add1,
+                                    supplier_add2:this.displaydetails[0].suppier_add2,
+                                    suppier_mob_no:this.displaydetails[0].suppier_mob_no,
+                                    suppier_email_id:this.displaydetails[0].suppier_email_id,
+                                    suppier_city:this.displaydetails[0].suppier_city,
+                                    item_type_id:this.displaydetails[0].itemtypeid,
+                                    item_quantity:itemquantityvalue,
+                                    reference_id:this.displaydetails[0].purchase_request_number,
+                                    item_id:this.displaydetails[0].itemid,
+                                    warehouse_stores_id:this.displaydetails[0].warehousestoresid,
+                                    status:"order created",
+                                    check_status:this.check_status,
+                                    totalprice:this.totalprizeval,
+                                    itemname:this.displaydetails[0].itemname,
+                                    itemtype:this.displaydetails[0].itype,
+                                    per_unit_price:this.pricingvalue,
+                                    unit_of_measure_id:this.displaydetails[0].unit_of_measure_id
+                                  };
+                                  PO_summary_array.push(this.p_o_create_params);
+                                  for(var i=0;i<PO_summary_array.length;i++){
+                                    localarray.push(PO_summary_array[i]);
+                                  }
+                                  this.PO_summarypapercard="";
+                                  this.PO_summarypapercard=localarray;
+
+            this.$.p_o_create_id.generateRequest();
+            if(this.partialcodition=="partial condition 'below'"+this.displaydetails[0].iquantity){
+              var remain_item_quantity=Number(e.model.item.iquantity)-Number(itemquantityvalue);
+              e.model.item.iquantity=remain_item_quantity;
+              this.partialcodition="partial condition 'below'"+remain_item_quantity;
+              this.purchaseorder_hidden_div=true;
+            }
+            else {
+              this.addpurchase_btn_hide=true;
+              this.purchaseorder_hidden_div=true;
+            }
+          },
+          addpurchase_order_create:function(){
+            if(this.partialcodition=="partial condition 'below'"+this.displaydetails[0].iquantity){
+              this.template_hidden=false;
+              this.po_numberval="";
+              this.value2="";
+              this.pricingvalue="";
+              this.totalprizeval="";
+            }
+            this.view_pdf_hide=true;
+            this.addpurchase_btn_hide=true;
+            this.purchaseorder_hidden_div=false;
+          },
+          p_o_create_response:function(e){
+            alert(e.detail.response.returnval);
+            this.pdf_mail_div_hide=false;
+          },
+          FnSearchEnquiry2:function(e){
+              if(e.keyCode==13|| e.keyCode==40)
+              this.querySelector('#transportinput4').focus();
+              var arr=[];
+              if(e.keyCode==8){
+                this.itemflag1="true";
+                this.itemval1="";
+                var len=(this.value2).length;
+                if(len<=1){
+                  this.querySelector('#transportinput4').style.visibility='hidden';
+                  this.supplierArray="";
+                  this.itemval1="";
+                }
+                if(len>1){
+                  // alert("if callback");
+                  this.querySelector('#transportinput4').style.visibility='visible';
+                  var backsubval=(((this.value2).substring(0,(len-1))).trim()).toUpperCase();
+                  for(var i=0;i<item1.length;i++)
+                  {
+                    var subval=((item1[i].supplier_name).trim()).substring(0,backsubval.length);
+                    if((item1[i].supplier_name).toUpperCase().indexOf((this.value2).toUpperCase())!=-1)
+                    {
+                      var obj1={"itemdes1":"","enquiry_no":""};
+                      obj1.supplier_name=item1[i].supplier_name;
+                      obj1.supplier_id=item1[i].supplier_id;
+                      arr.push(obj1);
+                    }
+                  }
+                  this.supplierArray=arr;
+                }
+              }
+              if(e.keyCode!=8&& e.keyCode!=16&& e.keyCode!=13 && e.keyCode!=38&&e.keyCode!=40&&e.keyCode!=37&&e.keyCode!=39){
+                if(this.itemflag1=="true") {
+                  this.itemval1 = (this.value2).toUpperCase()+String.fromCharCode((e.keyCode)).toUpperCase();
+                  this.itemflag1="false";
+                }
+                else
+                this.itemval1 = this.value2 +String.fromCharCode((e.keyCode));
+                if(this.itemval1.length>0)
+                {
+                  for(var i=0;i<item1.length;i++)
+                  {
+                    var subval=((item1[i].supplier_name).trim()).substring(0,this.itemval1.length);
+                    if((item1[i].supplier_name).toUpperCase().indexOf((this.itemval1).toUpperCase())!=-1)
+                    {
+                      var obj1={"itemdes1":"","enquiry_no":""};
+                      obj1.supplier_name=item1[i].supplier_name;
+                      obj1.supplier_id=item1[i].supplier_id;
+                      arr.push(obj1);
+                    }
+                  }
+                  if(arr.length>0)
+                    this.supplierArray=arr;
+                  else
+                  {
+                    var obj1={"itemdes1":"","enquiry_no":""};
+                    obj.itemdes1="No items found";
+                    arr.push(obj1);
+                    this.supplierArray=arr;
+                  }
+                }
+              }
+              },
+              FnSelectEnquiry3:function(e){
+                this.prizeval=[];
+                var dynamicEl=null;
+                dynamicEl = document.createElement("prizing-strategy");
+                document.body.append(dynamicEl);
+                document.querySelector("prizing-strategy").tablename = "od_procurement_item_supplier_mapping";
+                document.querySelector("prizing-strategy").elementname ="purchase-order-details-card";
+                document.querySelector("prizing-strategy").idname =this.selectedname;
+                document.querySelector("prizing-strategy").fieldname="supplier_id";
+                document.querySelector("prizing-strategy").itemid=this.displaydetails[0].itemid;
+                document.querySelector("prizing-strategy").returnfunctionname="getprizing_fn";
+                document.querySelector("prizing-strategy").call_iron_ajaxFn();
+                itemquantityvalue=sessionStorage.getItem("item_quantity");
+                this.selectedid=this.selectedname;
+                supplierid=this.selectedname;
+              this.querySelector('#transportinput4').style.visibility='hidden';
+              autoc_supplier_name = e.target.selectedItem.textContent.trim();
+              autoc_item_id = e.target.selectedItem.value.trim();
+              this.supplierArray=[];
+              document.querySelector('#transportinput4').selected=-1;
+              this.value2=autoc_supplier_name;
+            },
+            getprizing_fn:function(data){
+              this.dropdowndisplay=false;
+              this.pricingvalue=data[0].pricing;
+              // this.prizeval=data;
+            },
+            cal_totalprize:function(e){
+              this.totalprizeval=Number(itemquantityvalue)*Number(this.pricingvalue);
+            },
+            alertcloseFn:function(){
+              document.getElementById('alertclose_id').style.display='none';
+            },
+            send_mail_Fn:function(){
+              if(this.partialcodition=="partial condition 'below'"+this.displaydetails[0].iquantity){
+                this.addpurchase_btn_hide=false;
+              }
+              this.send_mail_ajax_params=this.p_o_create_params;
+              this.$.send_mail_ajax_id.generateRequest();
+            },
+            view_pdf_Fn:function(){
+              this.template_hidden=true;
+              this.pdf_ponumber=this.po_numberval;
+              this.view_pdf_hide=false;
+            },
+            backFn:function(){
+              document.querySelector("home-page").FnSetPage("purchase-order");
+            }
+        })
+      </script>
+</dom-module>

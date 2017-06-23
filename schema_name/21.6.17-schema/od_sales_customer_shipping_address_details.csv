@@ -1,0 +1,4 @@
+"shipping_id","customer_email","country_code","state_code","city_name","street_name","pincode","mobile_number"
+"ship1901","testemail@domain.com","ZW","10","c1","s1","124356","mbl1"
+"ship1978","test1@test1","GM","02","test1","test1","1243124","mbl2"
+"ship1979","test@","ZM","07","test","test","123123","mbl12313131"

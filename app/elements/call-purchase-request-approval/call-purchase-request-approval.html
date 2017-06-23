@@ -1,0 +1,51 @@
+<dom-module id="call-purchase-request-approval">
+  <template>
+    <div class="row" style="margin-left:10px;margin-top:15px;">
+      <template is="dom-repeat" items="{{newpurchase_requests}}">
+        <purchase-request-approval intnumber={{item.purchase_request_number}}
+                         intdate={{item.purchase_request_date}}
+                         purchase_requesttype={{item.purchase_request_type_id}}
+                         itemtypename={{item.item_type_name}}
+                         itemid={{item.item_id}}
+                         iquantity={{item.item_quantity}}
+                         cquantity={{item.container_quantity}}
+                         whstoresid={{item.warehouse_stores_id}}
+                         status={{item.status}}
+                         ireqdate={{item.item_required_date}}
+                         itemid={{item.item_id}}
+                         itemname={{item.item_name}}
+                         itemdescription={{item.item_description}}
+                         itemspecification1={{item.item_specification1}}
+                         itemspecification2={{item.item_specification2}}
+                         containerid={{item.container_id}}
+                         containername="{{item.container_name}}"
+                         unitofmeasures={{item.unit_of_measures}}
+                         itemgroup={{item.item_group}}
+                         itemtypeid={{item.item_type_id}}
+                         itemstatus={{item.item_status}}
+                         itempurchasetype={{item.item_purchase_type}}
+                         warehouselocation={{item.warehouse_stores_name}}
+                         deptname={{item.department_name}}>
+        </purchase-request-approval>
+      </template>
+    </div>
+    <iron-ajax
+      auto
+      method="post"
+      params="{{loggedrole}}"
+      url="http://localhost:4000/purchase_requestapproval"
+      handle-as="json"
+      on-response="handlepurchase_requests">
+    </iron-ajax>
+  </template>
+  <script type="text/javascript">
+  Polymer({
+    is: "call-purchase-request-approval",
+    ready:function(){
+    },
+    handlepurchase_requests:function(e){
+      this.newpurchase_requests=e.detail.response.purchase_requests;
+    }
+  });
+  </script>
+</dom-module>

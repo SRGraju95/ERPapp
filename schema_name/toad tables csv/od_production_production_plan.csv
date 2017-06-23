@@ -1,0 +1,5 @@
+"od_production_plan_id","od_production_item_id","od_production_item_qty","od_production_item_qty_date","od_production_plan","od_production_status"
+"planid01","FLUX02",800,"29-12-2017","plan1","status1"
+"planid02","FLUX01",600,"29-12-2017","plan2","status2"
+"planid01","FLUX02",800,"29-02-2017","plan1","status1"
+"planid02","FLUX01",800,"29-02-2017","plan2","status2"

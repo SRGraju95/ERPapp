@@ -1,0 +1,25 @@
+<dom-module id="table-config-element">
+  <template>
+    <p hidden>{{elementname}}</p>
+    <p hidden>{{return_function}}</p>
+    <iron-ajax
+      auto
+      url="table-config-element.json"
+      handle-as="json"
+      last-response="{{tablenamejsondata}}"
+      on-response="handleResponse"></iron-ajax>
+  </template>
+    <script>
+      Polymer({
+        is:"table-config-element",
+        ready:function(){
+          alert("table-config-element");
+        },
+        handleResponse:function(){
+          var elementname=this.elementname;
+          var return_function=this.return_function;
+          document.querySelector(elementname)[return_function](this.tablenamejsondata);
+        }
+      });
+    </script>
+</dom-module>

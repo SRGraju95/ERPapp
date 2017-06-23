@@ -1,0 +1,36 @@
+
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+
+<dom-module id='purchase-order-item-service'>
+    <template>
+        <iron-ajax
+            method="post"
+            id="getItemPurchaseOrderNumer"
+            params="{{getItemPurchaseOrderNumerParam}}"
+            url="http://localhost:4000/itempurchaseordernumber"
+            handle-as="json"
+            on-response="resItemPurchaseOrderNumer">
+        </iron-ajax>
+        <div hidden>{{elementname}}{{returnfunction}}</div>
+    </template>
+
+    <script>
+        (function(){
+            Polymer({
+              is:'purchase-order-item-service',
+
+              ready:function(){
+                // alert("inside purchase-order-item-service element");
+              },
+              resItemPurchaseOrderNumer:function(e){
+                  var resPONumbers=e.detail.response.itdata;
+                  document.querySelector(this.elementname)[this.returnfunction](resPONumbers);
+              },
+              itemPurchaseOrderNumerServiceInvoke:function(data){
+                this.getItemPurchaseOrderNumerParam=data;
+                this.$.getItemPurchaseOrderNumer.generateRequest();
+              }
+            })
+        })();
+    </script>
+</dom-module>

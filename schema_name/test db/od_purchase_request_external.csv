@@ -1,0 +1,5 @@
+"purchase_request_number","purchase_request_date","purchase_request_type_id","item_id","item_quantity","container_quantity","warehouse_stores_id","status","item_required_date","supplier_name"
+"int579","2017-05-23","PM","PAC02","345","3945","stores2","active","2017-05-23","Mithra Mercantile"
+"int583","2017-05-23","PM","PAC02","1000","31223","stores2","active","2017-05-23","Suprabha Productive "
+"int584","2017-05-23","PM","PAC02","566","70070","stores2","active","2017-05-23","Mithra Mercantile"
+"int660","2017-05-25","PM","PAC02","30000","2500","stores2","active","2017-05-25","Suprabha Productive "

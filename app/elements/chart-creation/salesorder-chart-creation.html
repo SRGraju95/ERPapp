@@ -1,0 +1,48 @@
+<dom-module id="salesorder-chart-creation">
+  <style>
+    :host {
+      display: block;
+    }
+    #div1{
+      @apply(--layout-horizontal);
+    }
+  </style>
+  <template>
+    <div hidden>{{chartname}}{{salesorderid}}{{containerquantity}}{{orderquantity}}{{deliverquantity}}</div>
+        <div id="paper_id"></div>
+  </template>
+  <script>
+  var salesorderid="";
+  var orderquantity="";
+  var deliverquantity="";
+  var containerquantity="";
+  var chartname="";
+  var data1=[];
+  var chart_data;
+    Polymer({
+      is: "salesorder-chart-creation",
+      ready: function() {
+      },
+      attached: function(){
+        salesorderid=this.salesorderid;
+        orderquantity=this.orderquantity;
+        deliverquantity=this.deliverquantity;
+        containerquantity=this.containerquantity;
+        chartname=this.chartname;
+                  var data = new google.visualization.arrayToDataTable([ ['test1','test2'],
+                                                                       ['order_quantity',orderquantity],
+                                                                       ['container_quantity', containerquantity],
+                                                                       ['deliver_quantity', deliverquantity]]);
+                 var options = {
+                                 title:salesorderid,
+                                 sliceVisibilityThreshold: 0,
+                                 pieHole: 0.4,
+                                 is3D:true
+                               };
+                 var container = document.getElementById('paper_id').appendChild(document.createElement('paper-card'));
+                                 var chart = new google.visualization[chartname](container);
+                                 chart.draw(data, options);
+      },
+    });
+  </script>
+</dom-module>

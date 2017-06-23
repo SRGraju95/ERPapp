@@ -1,0 +1,54 @@
+<dom-module id="dynamic-card">
+  <template>
+    <p hidden>{{uiname}}</p>
+    <p hidden>{{menuid}}</p>
+    <p on-click="openmenu">{{menuname}}</p>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+    Polymer({
+      is: 'dynamic-card',
+      openmenu:function(e){
+        if(this.menuid=='1'){
+          document.querySelector('home-page').FnSetPage(this.uiname);
+        }
+        if(this.menuid=='5'){
+          document.querySelector('home-page').FnSetPage(this.uiname);
+        }
+        if(this.menuid=='6'){
+          document.querySelector('home-page').FnSetPage(this.uiname);
+        }
+        if(this.menuid=='9'){
+          document.querySelector('home-page').FnSetPage(this.uiname);
+        }
+        if(this.menuid=='11'){
+          document.querySelector('home-page').FnSetPage(this.uiname);
+        }
+        if(this.menuid=='12'){
+          document.querySelector('home-page').FnSetPage(this.uiname);
+        }
+        if(this.menuid=='22'){
+          document.querySelector('home-page').FnSetPage(this.uiname);
+        }
+        if(this.menuid=='34'){ //purchase-request-process*
+          var role=sessionStorage.getItem("logrole");
+          document.querySelector('home-page').FnSetPage(this.uiname);
+          var json={role};
+          document.querySelector('purchase-request-process-ironajax').loggedrole=json;
+        }
+        if(this.menuid=='36'){
+          var role=sessionStorage.getItem("logrole");
+          document.querySelector('home-page').FnSetPage(this.uiname);
+          var json={role};
+          document.querySelector('call-purchase-request-approval').loggedrole=json;
+        }
+        if(this.menuid=='37'){
+          document.querySelector('home-page').FnSetPage(this.uiname);
+            alert(this.uiname);
+        }
+      }
+    });
+  })();
+  </script>
+</dom-module>

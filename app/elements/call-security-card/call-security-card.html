@@ -1,0 +1,68 @@
+<link rel="import" href="call-security-card-ironajax.html">
+<dom-module id="call-security-card">
+  <template>
+    <style>
+      hr {
+          display: block;
+          margin-top: 2em;
+          margin-bottom: 2em;
+          margin-left: 100px;
+          margin-right: 200px;
+          border-style: inset;
+          border-width: 0px;
+        }
+        paper-button{
+          margin-top: 8%;
+          float: left;
+        }
+        /*paper-card{
+          /*@apply(--layout-horizontal);
+          width: 45%;
+        }*/
+        /*#repeat{
+          @apply(--layout-horizontal);
+        }*/
+    </style>
+      <p hidden>{{domdata}}</p>
+    <div class="container-fluid">
+    <div class="row">
+    <div class="col-sm-4">
+      <paper-dropdown-menu label="goodsvehiclenumber">
+        <paper-menu class="dropdown-content" attr-for-selected="value" selected="{{selection}}" on-click="vehNumSearchFn">
+          <template is="dom-repeat" items="{{vehicleNumdata}}">
+            <paper-item value="{{item.goods_vehicle_number}}">{{item.goods_vehicle_number}}</paper-item>
+          </template>
+        </paper-menu>
+      </paper-dropdown-menu>
+      </div>
+      <div class="col-sm-4">
+        <paper-button on-click="testFn">search<iron-icon  icon="search" suffix></iron-icon></paper-button>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <template is="dom-repeat" items="{{salesorderdata}}" >
+        <div class="col-sm-4" width=100%>
+        <paper-card image="../../images/salesimage.jpg" elevation="5">
+          <div class="card-content">SALE ORDER DATA
+            <div>{{item.salesorder_id}}</div>
+            <div>{{item.salesorder_date}}</div>
+            <div>{{item.customer_id}}</div>
+            <div>{{item.customer_location}}</div>
+            <div>{{item.item_id}}</div>
+            <div>{{item.container_quantity}}</div>
+            <div>{{item.available_quantity}}</div>
+            <div>{{item.delivered_quantity}}</div>
+            <div>{{item.required_delivery_date}}</div>
+            <div>{{item.status}}</div>
+          </div>
+        </paper-card>
+        </div>
+        <!-- <hr> -->
+      </template>
+ </div>
+</div>
+    <call-security-card-ironajax></call-security-card-ironajax>
+</template>
+  <script src="call-security-card.js"></script>
+</dom-module>

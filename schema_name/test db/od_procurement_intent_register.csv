@@ -1,0 +1,2 @@
+"intent_number","intent_date","intent_type_id","item_id","item_quantity","container_quantity","warehouse_stores_id","status","item_required_date"
+"int67","2017-05-18","PM","PAC01","100","5","stores1","Created","2017-05-18"

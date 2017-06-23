@@ -1,0 +1,74 @@
+"item_id","item_name","item_description","item_specification1","item_specification2","container_id","unit_of_measure_id","item_group","item_type_id","item_status","item_purchase_type","warehouse_stores_id"
+"TAT01","steel rod 5.5","long","6.67","4.66","box","uid01","steel","001","Created","online","mumbai"
+"TAT02","iron rod 5.5","long","6.67","4.66","box","uid02","steel","002","Created","online","mumbai"
+"BEA01","6315 Bearing","Bearing, Size 6315",,,"box","numbers","MEC","TP","Created","1","stores5"
+"BEA02","6314 Bearing","Bearing, Size 6314",,,"box","numbers","MEC","TP","Created","1","stores5"
+"BEA07","6205 Bearing","Bearing, Size 6205",,,"box","numbers","MEC","TP","Created","1","stores5"
+"BEA08","UCP 210 Bearing","Bearing, UCP 210",,,"box","numbers","MEC","TP","Created","1","stores5"
+"BEA09","UCP 209 Bearing","Bearing, UCP 209",,,"box","numbers","MEC","TP","Created","1","stores5"
+"CON01","Shulphuric Acid 92% to 98% Sp Gr 1.8","GRADE-COMMERCIAL, LEVEL 92% TO 98%, SP.GR 1.8",,,"cane","kg","CON","CI","active","0","stores1"
+"CON02","COPPER Blue Commercial","Copper, COLOUR BLUE, SOLUBLE IN H2O, Grade Commercial",,,"bag","kg","POW","RMFL","Created","0","stores1"
+"CON03","SODIUM HYDROXIDE Commercial","COLOUR-WHITE, SOLUBLE IN H2O, Grade Commercial",,,"bag","kg","CON","CI","Created","0","stores1"
+"DIE01","T.C DIES 0.77MM","BORE SIZE 0.77MM, PELLET SIZE 17X15, CASE SIZE 43X27",,,"box","numbers","DIE","TP","Created","0","stores1"
+"DIE02","T.C Dies 0.96MM","T.C Dies, Size 0.96MM, Pellet Size 17X15, Case Size 43X27",,,"box","numbers","DIE","TP","Created","0","stores1"
+"DIE03","T.C Dies 1.17MM","T.C Dies, Size 1.17MM, Pellet Size 17X15, Case Size 43X27",,,"box","numbers","DIE","TP","Created","0","stores1"
+"FCW01","E71T1 1.20MM","E71T1 1.20MM, AWS SFA 5.20 E71T1",,,"spool","kg","FCW","FG","Created","0",
+"FCW02","E71T1 1.60MM","E71T1 1.60MM, AWS SFA 5.20 E71T1",,,"spool","kg","FCW","FG","Created","0",
+"FCW03","E71T5 1.60MM","E71T5 1.60MM, AWS SFA 5.20 E71T5",,,"spool","kg","FCW","FG","Created","0",
+"FCW04","E81T1B2 1.20MM","E81T1B2 1.20MM, AWS SFA 5.29 E81T1B2",,,"spool","kg","FCW","FG","Created","0",
+"FCW05","E81T1B2 1.60MM","E81T1B2 1.60MM, AWS SFA 5.29 E81T1B2",,,"spool","kg","FCW","FG","Created","0",
+"FLUX01","SAW Flux F7A0 - EL8","SAW Flux F7A0-EL8 AWS SFA 5.17 ",,,"bag","kg","FLU","FG","Created","0",
+"FLUX02","SAW Flux F7A2 -EL8","SAW Flux F7A2-EL8 AWS SFA 5.17",,,"bag","kg","FLU","FG","Created","0",
+"LUB01","S37 T Lubricant","Granualted Powder-Colour Cream-Solubility In Water",,,"cane","kg","LUB","CI","Created","0","stores1"
+"LUB02","S 55 T Lubrianct","Granualted Powder-Colour Cream-Solubility In Water",,,"drum","kg","LUB","CI","Created","0","stores1"
+"LUB03","CCF6 Lubricant","Appearnce-Granualted Powder-Colour Cream-Solubility In Water",,,"drum","kg","LUB","CI","Created","0","stores1"
+"MIG01","MIG/MAG Weld Wire 0.8MM Layer","MIG/MAG Welding Wire 0.8MM Layer, AWS SFA 5.18 ER70S6",,,"spool","kg","MIG","FG","Created","0",
+"MIG02","MIG/MAG Weld Wire 0.8MM Random","MIG/MAG Welding Wire 0.8MM Random, AWS SFA 5.18 ER70S6",,,"spool","kg","MIG","FG","Created","0",
+"MIG03","MIG/MAG Weld Wire 1.00MM","MIG/MAG Welding Wire 1.00MM, AWS SFA 5.18 ER70S6",,,"spool","kg","MIG","FG","Created","0",
+"MIG04","MIG/MAG Weld Wire 1.00MM Pile Pack","MIG/MAG Welding Wire 1.00MM Pile Pack, AWS SFA 5.18 ER70S6",,,"spool","kg","MIG","FG","Created","0",
+"MIG05","MIG/MAG Weld Wire 1.2MM","MIG/MAG Welding Wire 1.2MM, AWS SFA 5.18 ER70S6",,,"spool","kg","MIG","FG","Created","0",
+"MIG10","MIG/MAG Weld Wire 3.15MM","MIG/MAG Welding Wire 3.15MM, AWS SFA 5.18 ER70S6",,,"drum","kg","MIG","FG","Created","0",
+"PAC01","RCI PAPER 10CM X 90MM","RCI PAPER 10CM X 90MM",,,"box","numbers","PAC","PM","Created","0","stores1"
+"PAC02","RCI Roll","RCI Roll, Width 100 MM, Type Bundle",,,"bundle","numbers","PAC","PM","active","0","stores2"
+"PAC03","TAPE (2GT1)2 White","Tape (2GT1)2 inch Trans Gum Tape, Colour White",,,"box","numbers","PAC","PM","Created","0","stores1"
+"PAC04","Tape (2GBI)2 Brown","Tape, (2GBI)2 inch, Colur Brown",,,"box","numbers","PAC","PM","Created","0","stores1"
+"PAC05","Silica Gel","Silica Gel 0.05 Grams Pocket",,,"bag","kg","PAC","PM","Created","0","stores1"
+"POW01","Ferro Manga Slag Powder A1203-65% Mn-10%","Ferro Manganese Slag Powder A1203-65%, Mn-10%",,,"bag","kg","POW","RMFL","Created","0","stores3"
+"POW02","Flourspar Powder CAF2-90%","Flourspar Poder, CAF2-90%",,,"bag","kg","POW","RMFL","Created","0","stores3"
+"POW03","Ferro Silicon Si-43%","Ferro Silicon, Si-43%",,,"bag","kg","POW","RMFL","Created","0","stores3"
+"SAW01","SAW Wire 4.0MM EL8","SAW Wire 4.0MM EL8, AWS SFA 5.17 EL8",,,"coil","kg","SAW","FG","Created","0",
+"SAW02","SAW Wire 3.15MM EL8","SAW Wire 3.15MM EL8, AWS SFA 5.17 EL8",,,"coil","kg","SAW","FG","Created","0",
+"SAW03","SAW Wire 2.5MM EL8","SAW Wire 2.5MM EL8, AWS SFA 5.17 EL8",,,"coil","kg","SAW","FG","Created","0",
+"SB0001","Steal bar 1MM 3MM","Steal bar 1MM 3MM",,,"coil","kg","EL2222","RM","Created","0","stores1"
+"SR0003","Steal Rod 4MM 2.7 MM","Steal Rod 4MM 2.7 MM",,,"coil","kg","EL2222","FG","Created","0","stores5"
+"STR01","CRSheet A U 09 0.8 X 10.16 Coil","CR Sheet TATEDD A U 09 0.8 X 10.16 X Coil",,,"coil","kg","RAW","RM","active","0","stores1"
+"WIR01","Wire Rod ER70S6 5.50MM JSW","Wire Rod, Grade ER70S6, Size 5.50MM",,,"coil","tonn","RAW","RM","Created","0","stores1"
+"WIR02","Wire Rod ER70S6 5.50MM Tata","WIRE ROD, Grade ER70S6, Size 5.50 MM",,,"coil","tonn","RAW","RM","Created","0","stores1"
+"WIR03","Wire Rod ER70S2 5.5MM","Wire Rod, Grade ER70S2, Size 5.5 MM",,,"coil","tonn","RAW","RM","Created","0","stores1"
+"WIR04","Wire Rod EWNR 5.50MM","Wire Rod, Grade EWNR, Size 5.50 MM",,,"coil","tonn","RAW","RM","Created","0","stores2"
+"WIR05","Wire Rod MS1008 5.50MM JSW","Wire Rod, Grade MS1008, Size 5.50 MM, Supplier JSW ",,,"coil","tonn","RAW","RM","Created","0","stores2"
+"WIR06","Wire Rod MS1008 5.50 MM RINL","WIRE ROD EH14 5.50 MM, Supplier RINL",,,"coil","tonn","RAW","RM","Created","0","stores2"
+"WIR07","Wire Rod MS1008 5.50MM National","Wire Rod, Grade MS1008, Size 5.50 MM, Supplier National",,,"coil","tonn","RAW","RM","Created","0","stores2"
+"WIR08","Wire Rod 1010 5.50MM","Wire Rod, Grade 1010, Size 5.50 MM",,,"coil","tonn","RAW","RM","Created","0","stores2"
+"WIR09","Wire Rod EM12K 5.50MM TATA","Wire Rod, Grade EM12K, Size 5.50 MM, Supplier TATA",,,"coil","tonn","RAW","RM","Created","0","stores2"
+"WIR10","Wire Rod EH14 5.5 MM ","Wire Rod, Grade EH14, Size 5.50 MM, Supplier Usha",,,"coil","tonn","RAW","RM","Created","0","stores2"
+"WIR11","Wire Rod EM12K 5.50MM JSW","Wire Rod, Grade EM12K, Size 5.50 MM, Supplier JSW",,,"coil","tonn","RAW","RM","Created","0","stores2"
+"ite17","test","desc","spec1","spec2","box","l","Electrical","CON","active","Regular","stores1"
+,,,,,,,,,"Created",,
+,,,,,,,,,"Created",,
+,"ITEM469",,,,,,,,"Created",,
+"shape","ITEM480",,,,,,,,"Created",,
+"ITEM486","rod",,,,,,,,"Created",,
+"ite484","test2","asdf","asdf","asdf","box","l","Electrical","CON","active","Spot","stores1"
+"MIG01","steel rod","large","5.5","5.1","box","tonne","steel","12322","delivered","online","434"
+"ITEM695","tyrty",,,,,,,,,,
+"ITEM124","Steel","","","","","","","","","",""
+"ITEM123","Steel","","","","","","","","","",""
+"ite712","Sample","Desc","Spec1","Spec2","drum","l","Electrical","PM","active","Regular","stores1"
+"ite756","Sample1","desc","spec1","spec2","bag","kg","Electrical","MP","Created","Spot","stores2"
+"ite758","Sample3","desc","spec1","spec2","box","kg","Electrical","OS","inactive","Spot","stores3"
+"ite839","check","desc","spec1","spec1","coil","Kg","Mechanical","CON","active","Spot","stores2"
+"ite842","check12","desc","spec1","spec2","bag","Kg","Electrical","CON","active","Regular","stores3"
+"ITEM875","gyhj",,,,,,,,,,
+"ite877","test100","description","spec1","spec2","box","Kg","Electrical","CON","active","Spot","stores2"
+"ITEM125","Rod","large","5.5","5.6","1000","200","metal","1234","ordered","online","8989"

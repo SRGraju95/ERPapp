@@ -1,0 +1,80 @@
+<dom-module id="chart-creation">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+    <div id="columnchart_material1"></div>
+    <div id="columnchart_material"></div>
+    <iron-ajax
+        auto
+        id="chart_testing_id"
+        method="post"
+        url="http://localhost:1000/chart_testing_info"
+        handle-as="json"
+        on-response="chart_testing_response">
+    </iron-ajax>
+  </template>
+  <script>
+  var partial=0;
+  var fullfilled=0;
+  var partialcontainer_quantity=0;
+  var partialorder_quantity=0;
+  var partialdelivered_quantity=0;
+  var fullfilledcontainer_quantity=0;
+  var fullfilledorder_quantity=0;
+  var fullfilleddelivered_quantity=0;
+    Polymer({
+      is: "chart-creation",
+      ready: function(){
+      },
+      chart_testing_response:function(e){
+
+        // alert(e.detail.response.returnval);
+        for(var i=0;i<e.detail.response.returnval.length;i++){
+          if(e.detail.response.returnval[i].status=="partially fullfilled"){
+            partial++;
+            // alert(e.detail.response.returnval[i].delivered_quantity)
+            // alert(Number(partialcontainer_quantity)+Number(e.detail.response.returnval[i].container_quantity));
+            partialcontainer_quantity=Number(partialcontainer_quantity)+Number(e.detail.response.returnval[i].container_quantity);
+            partialorder_quantity=Number(partialorder_quantity)+Number(e.detail.response.returnval[i].order_quantity);
+            partialdelivered_quantity=Number(partialdelivered_quantity)+Number(e.detail.response.returnval[i].delivered_quantity);
+          }
+          if(e.detail.response.returnval[i].status=="fullfilled"){
+            fullfilled++;
+            fullfilledcontainer_quantity=Number(fullfilledcontainer_quantity)+Number(e.detail.response.returnval[i].container_quantity);
+            fullfilledorder_quantity=Number(fullfilledorder_quantity)+Number(e.detail.response.returnval[i].order_quantity);
+            fullfilleddelivered_quantity=Number(fullfilleddelivered_quantity)+Number(e.detail.response.returnval[i].delivered_quantity);
+          }
+          // if(e.detail.response.returnval[i].status=="purchase"){
+          //   purchase++;
+          // }
+        }
+          google.charts.load('current', {'packages':['corechart']});
+          google.charts.setOnLoadCallback(drawVisualization);
+          // alert("call-ceo-card");
+          function drawVisualization() {
+            // alert("calling");
+            // Some raw data (not necessarily accurate)
+            var data = google.visualization.arrayToDataTable([
+             ['Month','order_quantity', 'container_quantity','delivered_quantity'],
+             ['Number of Partial Salesorder'+partial,partialcontainer_quantity,partialorder_quantity,partialdelivered_quantity],
+             ['Number of Fullfilled Salesorder'+fullfilled,fullfilledcontainer_quantity,partialorder_quantity,partialdelivered_quantity],
+          ]);
+
+        var options = {
+          title : 'Salesorder Statics',
+          vAxis: {title: 'Number of quantity'},
+          hAxis: {title: 'Salesorder'},
+          seriesType: 'bars',
+          // series: {0: {type: 'line'}}
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('columnchart_material'));
+        chart.draw(data, options);
+      }
+      }
+    });
+  </script>
+</dom-module>

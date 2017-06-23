@@ -1,0 +1,6 @@
+  [{"table_name":"sample_table",
+    "column_name":[{"col":"emp_id varchar(20)"},
+                   {"col":"password varchar(20)"},
+                   {"col":"role varchar(20)"},
+                   {"col":"roleid varchar(20)"}]
+                  }]

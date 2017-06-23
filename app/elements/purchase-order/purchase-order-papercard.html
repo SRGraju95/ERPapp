@@ -1,0 +1,57 @@
+<link rel="import" href="purchase-order-details-card.html">
+<dom-module id="purchase-order-papercard">
+  <template>
+    <style>
+      paper-card{
+        /*width: 100%;*/
+        @apply(--layout-horizontal);
+      }
+    </style>
+    <div class="col-sm-4">
+      <paper-card on-click="opencarddetails">
+        <div style="width:40%;"><img src="../../images/no_image.jpg"></div>
+        <div class="card-content" style="width:60%;margin-left:20%;">
+          <div hidden>{{unit_of_measure_id}}</div>
+          <div hidden>{{podateval}}</div>
+          <div hidden>{{containerid}}</div>
+          <div hidden>{{itemid}}</div>
+          <div hidden>{{purchase_request_number}}</div>
+          <div hidden>{{warehousestoresid}}</div>
+          <div hidden>{{totaldata}}</div>
+          <div hidden>{{itemtypeid}}</div>
+          <div hidden>{{suppier_add1}}</div>
+          <div hidden>{{suppier_add2}}</div>
+          <div hidden>{{suppier_mob_no}}</div>
+          <div hidden>{{suppier_email_id}}</div>
+          <div hidden>{{suppier_city}}</div>
+          <div><b>{{itemname}}</b></div>
+          <div><b2>{{itype}}</b2></div>
+          <div><b2>{{itemspecification1}}</b2></div>
+          <div><b2>{{warehouselocation}}</b2></div>
+          <div><b2>{{cquantity}}{{icontainer}}</b2></div>
+          <div><b2>{{iquantity}}</b2></div>
+          <div><b2>Req Date</b2></div><div><b1>{{reqdate}}</b1></div>
+        </div>
+      </paper-card>
+    </div>
+  </template>
+  <script>
+    Polymer({
+      is:"purchase-order-papercard",
+      ready:function(){
+        // alert("purchase-order-papercard")
+      },
+      opencarddetails:function(){
+        sessionStorage.setItem("item_quantity",this.iquantity);
+        var arr=[];
+        arr.push({podateval:this.podateval,itemname:this.itemname,itype:this.itype,itemspecification1:this.itemspecification1,warehouselocation:this.warehouselocation,
+                  icontainer:this.icontainer,cquantity:this.cquantity,iquantity:this.iquantity,reqdate:this.reqdate,containerid:this.containerid,itemid:this.itemid,warehousestoresid:this.warehousestoresid,
+                  purchase_request_number:this.purchase_request_number,itemtypeid:this.itemtypeid,unit_of_measure_id:this.unit_of_measure_id,
+                  suppier_add1:this.suppier_add1,suppier_add2:this.suppier_add2,suppier_mob_no:this.suppier_mob_no,suppier_email_id:this.suppier_email_id,suppier_city:this.suppier_city});
+        document.querySelector('home-page').FnSetPage("purchase-order-details-card");
+        document.querySelector('purchase-order-details-card').displaydetails=arr;
+        document.querySelector('purchase-order-details-card').totaldataFn(this.totaldata);
+      }
+    });
+  </script>
+</dom-module>

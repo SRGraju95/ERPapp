@@ -1,0 +1,90 @@
+<dom-module id="salesorder-chart-element">
+  <style>
+    :host {
+      display: block;
+    }
+    #div1{
+      @apply(--layout-horizontal);
+    }
+  </style>
+  <template>
+    <div id="div1">
+      <div style="margin-top:14%;width:25%;margin-left:5%">
+        <paper-input label="choose Starting date" value="{{min1}}"></paper-input>
+        <datetime-picker label="stating date" width="300" date-string="{{min1}}"  min-date="[[max1]]" use-not-native></datetime-picker>
+      </div>
+      <div style="margin-top:14%;width:25%;margin-left:5%">
+        <paper-input label="choose Endinging date" value="{{min2}}"></paper-input>
+        <datetime-picker width="300" date-string="{{min2}}"  min-date="[[max2]]" use-not-native></datetime-picker>
+      </div>
+    </div>
+    <paper-radio-group label="choose customer wise or item wise" on-click="trigger_fn" selected="{{selctedvalue}}">
+      <paper-radio-button name="customer_id">Customer Wise</paper-radio-button>
+      <paper-radio-button name="item_id">Item wise</paper-radio-button>
+    </paper-radio-group>
+    <template is="dom-repeat" items="{{jsondata}}">
+      <salesorder-chart-creation chartname="ComboChart"
+                                 salesorderid={{item.salesorder_id}}
+                                 orderquantity={{item.order_quantity}}
+                                 deliverquantity={{item.delivered_quantity}}
+                                 containerquantity={{item.container_quantity}}>
+                                 </salesorder-chart-creation>
+    </template>
+    <paper-card id="papercard_id" style="width:100%"></paper-card>
+      <iron-ajax
+          id="salesorder_chart_id"
+          method="post"
+          url="http://localhost:1000/salesorder_chart_info"
+          params="{{salesorder_chart_params}}"
+          handle-as="json"
+          on-response="salesorder_chart_response">
+      </iron-ajax>
+
+  </template>
+  <script>
+  var chart_data=new Array();
+  var selctedvalue;
+    Polymer({
+      is: "salesorder-chart-element",
+      ready: function() {
+      },
+      trigger_fn:function(){
+        selctedvalue=this.selctedvalue
+        this.salesorder_chart_params={starting_date:this.min1,
+                                      ending_date:this.min2};
+
+        this.$.salesorder_chart_id.generateRequest();
+      },
+      salesorder_chart_response:function(e){
+        google.charts.load('current', {'packages':['corechart']});
+        // google.charts.setOnLoadCallback(drawVisualization);
+        // alert("call-ceo-card");
+        // function drawVisualization() {
+        // alert(JSON.stringify(e.detail.response.returnval));
+            this.jsondata=e.detail.response.returnval;
+            // alert(JSON.stringify(this.jsondata));
+            chart_data.push(['salesorder_id','order_quantity'])
+            for(var i=0;i<this.jsondata.length;i++){
+             chart_data.push([this.jsondata[i].salesorder_id,this.jsondata[i].order_quantity])
+             }
+            var data = new google.visualization.arrayToDataTable(chart_data);
+            var options1 = {
+                            title:"over all orderquantity",
+                            sliceVisibilityThreshold: 0,
+                            is3D:true,
+                            // slices: {  2: {offset: 0.2},
+                            //            3: {offset: 0.3},
+                            //            4: {offset: 0.4},
+                            //            5: {offset: 0.5},
+                            //         }
+                        };
+                        var container = document.getElementById('papercard_id');
+                                        var chart = new google.visualization.PieChart(container);
+                                        chart.draw(data, options1);
+                                      chart_data=[];
+                                    }
+                                    // }
+
+    });
+  </script>
+</dom-module>

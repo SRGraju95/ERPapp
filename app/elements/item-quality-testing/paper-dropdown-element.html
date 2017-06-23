@@ -1,0 +1,31 @@
+<dom-module id="paper-dropdown-element">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+    <div hidden>{{index}}</div>
+    <paper-dropdown-menu label="Quality Range value" on-change="dropdownchange">
+      <paper-listbox class="dropdown-content">
+          <paper-item>{{quality_parameter_range_value}}</paper-item>
+      </paper-listbox>
+    </paper-dropdown-menu>
+  </template>
+  <script>
+  var tempActualsVal=[];
+    Polymer({
+      is: "paper-dropdown-element",
+      ready: function() {
+        tempActualsVal.push({});
+      },
+      dropdownchange:function(){
+        tempActualsVal.splice(this.index,1,{actualval:this.quality_parameter_range_value})
+      },
+      getactualsFn:function(){
+        document.querySelector("item-quality-testing").inputvalues(tempActualsVal);
+        tempActualsVal=[];
+      }
+    });
+  </script>
+</dom-module>

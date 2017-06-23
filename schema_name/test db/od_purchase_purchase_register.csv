@@ -1,0 +1,5 @@
+"purchase_order_number","purchase_order_date","purchase_order_type_id","item_id","item_quantity","warehouse_stores_id","status","supplier_id","reference_id","po_price"
+"12345","2017-05-26","PM",,"345","stores2","order created","SUP","int579","1"
+"12345","2017-05-26","PM","undefined","345","stores2","order created","SUP","int579","1.25"
+"568778","2017-05-26","PM","PAC02","1000","stores2","order created","SUP","int583","1.25"
+"7777","2017-05-26","PM","PAC02","1000","stores2","order created","SUP","int583","1.25"

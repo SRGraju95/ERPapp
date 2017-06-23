@@ -1,0 +1,37 @@
+<dom-module id="paper-toggle-element">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+    <div hidden>{{index}}</div>
+    <paper-toggle-button on-click="togglechangeFn" active="{{togglechangevalue}}">{{toggle_value}}</paper-toggle-button>
+  </template>
+</dom-module>
+<script type="text/javascript">
+var tempActualsVal=[];
+  Polymer({
+    is: "paper-toggle-element",
+    ready: function(){
+      tempActualsVal.push({});
+    },
+    togglechangeFn:function(){
+      if(this.togglechangevalue==true){
+        this.toggle_value="pass";
+        tempActualsVal.splice(this.index,1,{actualval:this.toggle_value})
+        // alert(JSON.stringify(tempActualsVal))
+
+      }
+      else{
+          this.toggle_value="fail";
+          tempActualsVal.splice(this.index,1,{actualval:this.toggle_value})
+          // alert(JSON.stringify(tempActualsVal))
+      }
+    },
+    getactualsFn:function(){
+      document.querySelector("item-quality-testing").inputvalues(tempActualsVal);
+      tempActualsVal=[];
+    }
+  });
+</script>

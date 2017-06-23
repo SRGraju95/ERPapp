@@ -1,0 +1,19 @@
+"salesorder_id","salesorder_date","customer_id","item_id","item_description","item_specification","container_quantity","order_quantity","delivered_quantity","required_delivery_date","status","emp_id"
+"1","20-04-2017","CUS0001","FCWO1","good","wire","1000","600","900","28-03-17","Order placed","purchase"
+"2","19-02-2017","cus1","FLUX02","wire","5.5 inch","2","700","90","21-05-1017","Order placed","3"
+"3","29-02-2017","CUS0003","WIR02","rod","5.5 inch","2","800","90","26-05-1017","Order placed","3"
+"4","13-02-2017","CUS0007","MIG01","metal","5.5 inch","2","1000","90","9-05-1017","Order placed","ceo"
+"3","29-02-2017","CUS0003","WIR02","wire","5.5 inch","2","800","90","7-05-1017","Projection","3"
+"2","19-02-2017","cus1","FLUX02","wire","5.5 inch","2","700","90","21-05-1017","Projection","3"
+"sal315","2017-05-20",,"MIG01","undefined","undefined","200","100","undefined","2017-05-18","Projection","3"
+"sal328","2017-05-20","CUS0011","MIG01","","wire","300","500","undefined","2017-05-16","Order placed","3"
+"sal393","2017-05-22",,"FLUX01","undefined","undefined","200","100","undefined","2017-05-23","Projection","3"
+"sal764",,"MIG01","","rod","2000","1000","undefined","2017-05-26","2017-05-31","undefined",
+"sal764",,"MIG01","","rod","2000","1000","undefined","2017-05-26","2017-05-31","undefined",
+"sal764",,"MIG01","","rod","2000","1000","undefined","2017-05-26","2017-05-31","undefined",
+"sal764",,"MIG01","","rod","2000","1000","undefined","2017-05-26","2017-05-31","undefined",
+"sal768","2017-05-26",,"MIG01","undefined","undefined","1000","1000","undefined","2017-05-24","Projection",
+"sal786","2017-05-26",,"MIG01","","wiree","400","400","undefined","2017-05-01","undefined",
+"sal786","2017-05-26",,"MIG01","","wiree","400","400","undefined","2017-05-01","undefined",
+"sal786","2017-05-26",,"MIG01","","wiree","400","400","undefined","2017-05-01","undefined",
+"sal791","2017-05-26",,"MIG01","","wireeee","300","200","undefined","2017-05-16","undefined",

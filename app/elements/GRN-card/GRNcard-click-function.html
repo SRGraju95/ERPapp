@@ -1,0 +1,334 @@
+<link rel="import" href="GRNcard-container-domrepeat.html">
+<dom-module id="GRNcard-click-function">
+  <template>
+    <!-- <p hidden>{{containerid}}</p>-->
+    <p hidden>{{itemname}}</p>
+    <p hidden>{{db_update_name}}</p>
+    <p hidden>{{testid}}</p>
+  <style is="custom-style">
+      section {
+        width: 100%;
+        height: 750px;
+        @apply(--layout-vertical);
+      }
+      .scroll{
+        overflow-y: hidden;
+        overflow-x: hidden;
+        }
+      #header1{
+        margin-left: 5%;
+      }
+      /*paper-dialog-scrollable{
+      overflow-y: hidden;
+      }*/
+      section paper-dialog-scrollable {
+        @apply(--layout-flex);
+      }
+      /*paper-card{
+        width: 70%;
+        height: 50%
+      }*/
+      paper-card.rate {
+         @apply(--layout-horizontal);
+         /*background-color: #F5F5F5;*/
+       }
+      .rate-image {
+       width: 150px;
+       /*height:200px;*/
+       background-size: cover;
+      }
+      .rate-content {
+       @apply(--layout-flex);
+       float: left;
+      }
+      .rate-header { @apply(--paper-font-headline);}
+      .rate-name { color: var(--paper-grey-700); margin: 10px 0; }
+      paper-icon-button.rate-icon {
+       --iron-icon-fill-color: white;
+       --iron-icon-stroke-color: var(--paper-grey-600);
+      }
+      hr {
+          display: block;
+          margin-top: 2em;
+          margin-bottom: 2em;
+          margin-left: 100px;
+          margin-right: 200px;
+          border-style: inset;
+          border-width: 0px;
+        }
+  </style>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <template is="dom-repeat" items="{{displaycontent}}">
+        <div class="rate-header" id="header1">{{item.inward_register_number}}</div>
+        <paper-card class="rate" style="margin-top:6px;margin-left:15px; width: 70%; height: 100px" on-click="cardgetFn" elevation="0">
+          <div class="rate-content">
+          <div class="card-content">
+            <div class="rate-name">
+              <table>
+                <div hidden>{{item.po_number}}</div>
+                <div hidden>{{item.po_date}}</div>
+                <!-- <div class="rate-header">{{item.Itemname}}</div> -->
+                <div class="rate-header">{{item.itemname}}</div>
+                <div>{{item.itemspecification}}</div>
+                <div>{{item.container_quantity}}{{item.container_id}}&nbsp&nbsp
+                {{item.item_quantity}}{{item.unit_of_measure_id}}</div>
+                <!-- <div class="rate-header">{{item.Containername}}</div> -->
+                <div class="rate-header">{{item.Suppliername}}</div>
+                <div>{{item.suppliername}}</div>
+                <div class="rate-header">{{item.Invoice}}</div>
+                <div>{{item.invoice_no}}  {{item.invoice_date}}</div>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="rate-image" style="background-image: url({{item.images}})"></div>
+      </paper-card>
+      <hr>
+      </template>
+      <!-- <hr> -->
+    </div>
+    <div class="col-sm-6">
+      <div hidden="{{overallthumbsuphiddenvar}}" style="float:right;font-size:30px; color:{{colorupchange}};" class="glyphicon glyphicon-thumbs-up" on-click="overallthumbsupFn"></div>
+      <iron-collapse id="overallthumbsupcollapse" opened="{{overallthumbsupcollapse}}">
+      <template is="dom-repeat" items="{{countvalue}}">
+            <GRNcard-container-domrepeat
+                                        id="{{index}}"
+                                        array_count="{{array_count}}"
+                                        containerid="{{containerid}}"
+                                        grnnumber="{{grnnumber}}"
+                                        idval="{{idval}}"
+                                        indexval="{{index}}"
+                                        btno="{{btno}}"
+                                        htno="{{htno}}"
+                                        heat_no_val="{{item.heat_number}}"
+                                        quantity_value="{{item.quantity}}"
+                                        batch_no_val="{{item.batch_number}}"
+                                        po_number_val="{{item.po_number}}"
+                                        container_no_val="{{item.container_number}}"
+                                        po_date_val="{{item.po_date}}"
+                                        item="{{getitemid_name}}"
+                                        testbuttonhiddenvar="{{qualityhidden_var}}"
+                                        db_update_name="{{db_update_name}}"
+                                        po_number_array="{{itemArray1}}"></GRNcard-container-domrepeat>
+        <div></div>
+        <!-- <hr> -->
+      </template>
+    </iron-collapse>
+      <paper-button raised style="margin-left:60%;cursor:pointer;" class="btn btn-app" on-click="saveconFn"><i class="fa fa-save"></i>save</paper-button>
+    <!-- </paper-dialog-scrollable> -->
+  <!-- </section> -->
+    </div>
+  </div>
+</div>
+<iron-ajax
+        method="post"
+        id="savecontaineridAjax"
+        url="http://localhost:4000/savecontaineridinfo"
+        params="{{containeridparams}}"
+        handle-as="json"
+        on-response="savecontainerResponse"></iron-ajax>
+        <iron-ajax
+                method="post"
+                id="updatecontaineridAjax"
+                url="http://localhost:4000/updatecontaineridinfo"
+                params="{{updatecontaineridparams}}"
+                handle-as="json"
+                on-response="updatecontainerResponse"></iron-ajax>
+                <iron-ajax
+                        method="post"
+                        id="updatecontainer_to_slider_Ajax"
+                        url="http://localhost:4000/updatecontainer_to_slider_info"
+                        params="{{updatecontainer_to_slider_params}}"
+                        handle-as="json"
+                        on-response="updatecontainer_to_slider_Response"></iron-ajax>
+                        <iron-ajax
+                                method="post"
+                                id="searchcontainer_details_for_purchase_Ajax"
+                                url="http://localhost:4000/searchcontainer_details_for_purchase_info"
+                                params="{{searchcontainer_details_for_purchase_params}}"
+                                handle-as="json"
+                                on-response="searchcontainer_details_for_purchase_response"></iron-ajax>
+</template>
+<script>
+  var globalarray=[];
+  var getdata;
+  var grnnumber;
+  var cntnoVal;
+  var arr=[];
+  var globaldata;
+  var totalbindingvalues;
+  var container_quantity;
+  var containervalue;
+  Polymer({
+    is:"GRNcard-click-function",
+    ready:function(){
+    },
+    saveconFn:function(){
+      if(containervalue==undefined){
+        document.querySelector("GRNcard-container-domrepeat").savecontaineridFn();
+      }
+      else {
+        document.querySelector("GRNcard-container-domrepeat").calloverallcontainer_detFn(containervalue);
+      }
+    },
+    getfunc:function(data,bind_data){
+      if(data[0].overallthumbsuphiddenvar==0){
+        this.overallthumbsuphiddenvar=0;
+      }
+      else {
+        this.overallthumbsuphiddenvar=1;
+      }
+      this.overallthumbsupcollapse=data[0].overallthumbsupcollapse;
+      globaldata=data;
+      arr=[];
+      this.displaycontent=data;
+      this.grnnumber=data[0].inward_register_number;
+      this.db_update_name=data[0].db_update_name;
+      // alert(this.db_update_name);
+      this.itemname=data[0].itemname;
+      // for(var i=0;i<data.length;i++){
+      if(data[0].container_quantity!=""){
+        if(data[0].container_id=="coil"){
+          for(var x=0;x<data[0].container_quantity;x++){
+            arr.push({});
+            // alert("inside for loop"+arr.length);
+          }
+          container_quantity=data[0].container_quantity;
+          if(bind_data==undefined){
+            this.countvalue=arr;
+          }
+          else if (bind_data[0].purchase_order_number!=null) {
+            this.countvalue=arr;
+            this.itemArray1=bind_data;
+            alert("strores bind_data[0].purchase_order_number"+bind_data[0].purchase_order_number);
+          }
+          else {
+            if(container_quantity<bind_data.length){
+              var calculate_length=Number(bind_data.length)-Number(container_quantity);
+              bind_data.splice(container_quantity,calculate_length);
+              // alert("arr length"+arr.length);
+              totalbindingvalues=bind_data;
+              this.countvalue=bind_data;
+              this.container_number=bind_data[0].container_number;
+            }
+            else {
+              totalbindingvalues=bind_data;
+              this.countvalue=bind_data;
+              this.container_number=bind_data[0].container_number;
+            }
+          }
+          this.array_count=data[0].container_quantity;
+          this.idval=data[0].container_id;
+          this.containerid=data[0].container_id;
+          this.btno=0;
+          this.htno=0;
+          this.getitemid_name=this.itemname;
+          if(data[0].qualityhidden_var=="1"){
+          this.qualityhidden_var=1;
+          }
+          if(data[0].qualityhidden_var=="0"){
+          this.qualityhidden_var=0;
+          }
+        }
+        else{
+          for(var x=0;x<data[0].container_quantity;x++){
+            arr.push({});
+          }
+          container_quantity=data[0].container_quantity;
+          if(bind_data==undefined){
+            this.countvalue=arr;
+          }
+          else if (bind_data[0].purchase_order_number!=null) {
+            this.itemArray1=bind_data;
+            this.countvalue=arr;
+            alert("strores bind_data[0].purchase_order_number"+bind_data[0].purchase_order_number);
+          }
+          else {
+            if(container_quantity<bind_data.length){
+              var calculate_length=Number(bind_data.length)-Number(container_quantity);
+              bind_data.splice(container_quantity,calculate_length);
+              totalbindingvalues=bind_data;
+              this.countvalue=bind_data;
+              this.container_number=bind_data[0].container_number;
+            }
+            else {
+              totalbindingvalues=bind_data;
+              this.countvalue=bind_data;
+              this.container_number=bind_data[0].container_number;
+            }
+          }
+          // this.countvalue=data[i].container_quantity;
+        ////  // this.array_count=data[i].container_quantity;
+        this.array_count=data[0].container_quantity;
+
+          this.idval=data[0].container_id;
+          this.containerid=data[0].container_id;
+          this.btno=1;
+          this.htno=1;
+          if(data[0].qualityhidden_var=="1"){
+          this.qualityhidden_var=1;
+          }
+          if(data[0].qualityhidden_var=="0"){
+          this.qualityhidden_var=0;
+          }
+        }
+       }
+      // }
+    },
+    savecontaineridFn:function(data,itemquantitycount,containeridcount){
+      for(var i=0;i<data.length;i++){
+        this.containeridparams=data[i];
+        this.$.savecontaineridAjax.generateRequest();
+      }
+      this.updatecontaineridparams={updategrnnumber:data[0].grnnumber,
+                                    updateitemquantity:itemquantitycount,
+                                    updatecontaineriquantitycount:containeridcount,
+                                    db_update_name:this.db_update_name,
+                                    po_number:data[0].po_number,
+                                    po_date:data[0].po_date};
+      this.$.updatecontaineridAjax.generateRequest();
+      alert(JSON.stringify(this.updatecontaineridparams));
+  },
+  savecontainerResponse:function(e){
+    alert(e.detail.response.returnval);
+  },
+  updatecontainerResponse:function(e){
+    alert(e.detail.response.returnval);
+  },
+  update_containerval_to_slider_table:function(qid){
+      this.updatecontainer_to_slider_params={qid:qid,
+                                             grnnumber:grnnumber,
+                                             quantityVal:quantityVal};
+      this.$.updatecontainer_to_slider_Ajax.generateRequest();
+  },
+  containerval_to_slider_values:function(grnnumber,cntnoVal){
+    grnnumber=grnnumber;
+    cntnoVal=cntnoVal;
+  },
+  updatecontainer_to_slider_Response:function(e){
+    alert(e.detail.response.returnval);
+  },
+  searchcontainer_details_for_purchase_response:function(e){
+    document.querySelector("GRNcard-click-function").getfunc(globaldata,e.detail.response.returnval);
+    // alert(e.detail.response.returnval);
+  },
+  overallthumbsupFn:function(){
+    // containervalue=totalbindingvalues;
+    if(this.colorupchange==undefined){
+      this.colorupchange="#A2CD6F";
+      containervalue=totalbindingvalues;
+      this.$.overallthumbsupcollapse.toggle();
+    }
+    else if (this.colorupchange=="#A2CD6F"){
+      this.colorupchange=undefined;
+      containervalue=undefined;
+      this.$.overallthumbsupcollapse.toggle();
+    }
+    else{
+    }
+  }
+  });
+</script>
+</dom-module>

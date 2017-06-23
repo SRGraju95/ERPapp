@@ -1,0 +1,62 @@
+<link rel="import" href="purchase-order-papercard.html">
+<dom-module id="purchase-order">
+  <template>
+    <datetime-picker date-string="{{min}}"  min-date="[[max]]" use-not-native hidden></datetime-picker>
+    <template is="dom-repeat" items="{{purchaseapprovedata}}">
+      <purchase-order-papercard
+                                totaldata="{{items}}"
+                                containerid="{{item.container_id}}"
+                                itemid="{{item.item_id}}"
+                                unit_of_measure_id={{item.unit_of_measure_id}}
+                                purchase_request_number="{{item.purchase_request_number}}"
+                                warehousestoresid="{{item.warehouse_stores_id}}"
+                                podateval="{{min}}"
+                                itemname={{item.item_name}}
+                                itype={{item.item_type_name}}
+                                itemtypeid={{item.item_type_id}}
+                                itemspecification1={{item.item_specification1}}
+                                warehouselocation={{item.warehouse_stores_name}}
+                                icontainer={{item.container_name}}
+                                cquantity={{item.container_quantity}}
+                                iquantity={{item.item_quantity}}
+                                reqdate={{item.item_required_date}}
+                                suppier_add1={{item.address_1}}
+                                suppier_add2={{item.address_2}}
+                                suppier_mob_no={{item.mobile_1}}
+                                suppier_email_id={{item.email}}
+                                suppier_city={{item.city}}></purchase-order-papercard>
+    </template>
+    <!-- <template is="dom-repeat" items="{{inputfiled_data}}" >
+      <paper-input label="{{item.label}}" value="{{item.value}}"></paper-input>
+    </template> -->
+    <!-- <iron-ajax
+      auto
+      method="get"
+      url="testlabel.json"
+      handle-as="json"
+      last-response="{{testlabeldata}}"
+      on-response="handleResponse"></iron-ajax> -->
+
+    <iron-ajax
+      auto
+      method="post"
+      url="http://localhost:4000/purcahseorder_Create"
+      handle-as="json"
+      on-response="Purchase_order_create_Response"></iron-ajax>
+    </template>
+  <script>
+    Polymer({
+      is:"purchase-order",
+      ready:function(){
+      },
+      Purchase_order_create_Response:function(e){
+        this.purchaseapprovedata=e.detail.response.returnval;
+        this.items=this.purchaseapprovedata;
+      },
+      // handleResponse:function(e){
+      //   // alert(JSON.stringify(this.testlabeldata));
+      //   this.inputfiled_data=this.testlabeldata;
+      // }
+    });
+  </script>
+</dom-module>

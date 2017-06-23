@@ -1,0 +1,41 @@
+<dom-module id="custom-papercard">
+<template>
+<style is="custom-style">
+  paper-card.rate {
+    @apply(--layout-horizontal);
+    width: 80%;
+   }
+  .rate-image {
+    width: 200px;
+    height: 170px;
+    background-size: cover;
+  }
+  .rate-content {
+    @apply(--layout-flex);
+    float: left;
+  }
+  .rate-header { @apply(--paper-font-headline); }
+  .rate-name { color: var(--paper-grey-600); margin: 10px 0; }
+  paper-icon-button.rate-icon {
+    --iron-icon-fill-color: white;
+    --iron-icon-stroke-color: var(--paper-grey-600);
+  }
+</style>
+<paper-card class="rate" elevation="0">
+  <div class="rate-content">
+    <div class="card-content">
+      <div class="rate-header">{{purchase_request_number}}</div><div class="rate-name">{{itemname}}({{itemtype}})</div>
+      <div>{{itemspecification1}}</div>
+      <div class="rate-name">{{warehousestoresname}}</div>
+      <div>{{containerquantity}} {{containerid}}</div>
+    </div>
+  </div>
+  <div class="rate-image" style="background: url({{imageurl}});"></div>
+</paper-card>
+</template>
+<script>
+Polymer({
+  is:"custom-papercard"
+});
+</script>
+</dom-module>

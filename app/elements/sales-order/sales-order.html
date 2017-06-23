@@ -1,0 +1,139 @@
+<link rel="import" href="sales-ironajax.html">
+<link rel="import" href="../autogen-id/autogen-id.html">
+<dom-module id="sales-order">
+<style is="custom-style">
+     paper-card.size{
+       width: 100%;
+     }
+     paper-card.reqsize{
+       width: 100%;
+     }
+     paper-card.imgsize{
+       height: 300px;
+       width: 300px;
+      margin-left: 150px;
+      margin-top: 150px;
+     }
+     paper-listbox.dropdown-content{
+       width:100%;
+     }
+     paper-card.btnsize{
+    margin-top:2000px;
+     }
+     paper-dropdown-menu {
+         --paper-dropdown-menu: {
+           width: 100%;
+         }
+       }
+       :host([hidden]), .paper-item[hidden] {
+          display: none !important;
+        }
+</style>
+  <template>
+    <div class="row">
+      <div class="col-sm-6">
+         <paper-card elevation="0" heading="Customer Image" image="../../images/user2-160x160.jpg" class="imgsize"></paper-card>
+       </div>
+     <div class="col-sm-6">
+       <paper-card elevation="0" heading="Sales Order">
+         <div class="card-content"> <!--card-content-->
+
+      <paper-input hidden label="{{salesorderid}}" value="{{salesid}}"></paper-input>
+      <paper-input  label="{{customername}}" is="" value="{{value}}" on-tap="functionitem" on-keydown="FnSearchEnquiry"></paper-input>
+      <paper-listbox class="dropdown-content" id="transportinput2" on-iron-select="FnSelectEnquiry1">
+        <template is="dom-repeat" items="{{itemArray}}" as="item">
+          <paper-item value="{{item.customerid}}">{{item.itemdes}}</paper-item>
+        </template>
+      </paper-listbox>
+      <paper-input hidden label="{{customerlocation}}" value="{{clocation}}"></paper-input>
+      <paper-input hidden label="{{ItemId}}" value="{{iid}}"></paper-input>
+
+      <paper-input  label="{{Itemname}}" is="" value="{{value1}}" on-keydown="FnSearchEnquiry1"></paper-input>
+      <paper-listbox class="dropdown-content" id="transportinput3" on-iron-select="FnSelectEnquiry2">
+        <template is="dom-repeat" items="{{itemArray1}}" as="item1">
+          <paper-item value="{{item1.itemid}}">{{item1.itemdes1}}</paper-item>
+        </template>
+      </paper-listbox>
+      <paper-input label="{{itemdescription}}" value="{{idescription}}"></paper-input>
+      <paper-input label="{{itemspecification}}" value="{{ispecification}}"></paper-input>
+      <paper-input label="{{container}}" value="{{rcoils}}"></paper-input>
+      <paper-input label="{{quantity}}" value="{{rtons}}"></paper-input>
+      <paper-input label="{{dquantity}}" value="{{dqty}}"></paper-input>
+      <paper-dropdown-menu label="{{status}}" value="{{status}}" class="size">
+      <paper-listbox class="dropdown-content" attr-for-selected="cvalue" selected="{{selectedcontainer}}">
+        <paper-item>Select</paper-item>
+        <paper-item cvalue="Order Placed">Order Placed</paper-item>
+        <paper-item cvalue="Stock Available">Stock Available</paper-item>
+        <paper-item cvalue="Vechicle In">Vechicle In</paper-item>
+        <paper-item cvalue="Stock Loaded">Stock Loaded</paper-item>
+        <paper-item cvalue="Vechicle Out">Vechicle Out</paper-item>
+        <paper-item cvalue="Delivered">Delivered</paper-item>
+      </paper-listbox>
+    </paper-dropdown-menu>
+     <sales-ironajax></sales-ironajax>
+     <autogen-id></autogen-id>
+    <div class="row">
+      <div class="col-sm-6">
+    <div style="margin-top:10px;">
+      <p> Sales Order Date </p>
+        <datetime-picker date-string="{{min}}"  disabled min-date="[[max]]" use-not-native></datetime-picker>
+  </div>
+  </div>
+  <div class="col-sm-6" style="margin-top:10px;">
+        <p> Required Date </p>
+          <datetime-picker date-string="{{min1}}"  min-date="[[max]]" ></datetime-picker>
+  </div>
+  </div>
+  <br>
+  <div class="card-actions">
+    <center>
+      <a class="btn btn-app" on-click="salesidfn">
+        <i class="fa fa-save"></i>Save
+      </a>
+    </center>
+  </div>
+      </div> <!--div 3-->
+    </paper-card>
+      </div>
+    </div>
+    <iron-ajax id="insertajax"
+               method="post"
+               url="http://localhost:4000/salesinsert"
+               params="{{writeparam}}"
+               handle-as="json"
+               content-type="application/json"
+               on-response="salesResponse"></iron-ajax>
+
+    <iron-ajax
+            auto
+            method="post"
+            url="http://localhost:4000/autocomplete"
+            handle-as="json"
+            on-response="autocompletearr">
+    </iron-ajax>
+    <iron-ajax
+            method="post"
+            id="writeajax"
+            params="{{writeparam}}"
+            url="{{urlname}}"
+            handle-as="json"
+            on-response="autocompletearr1">
+    </iron-ajax>
+
+    <iron-ajax
+            auto
+            method="get"
+            id="jsoninfoid"
+            url="salesorder-label.json"
+            handle-as="json"
+            content-type="application/json"
+            on-response="jsoninfoResponse"
+            last-response="{{jsondata}}"
+            debounce-duration="300">
+    </iron-ajax>
+  </template>
+    <script src="sales-order.js">
+
+  </script>
+
+</dom-module>
